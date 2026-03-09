@@ -1,0 +1,396 @@
+{
+  "header": {
+    "brand": "Admin",
+    "adminToggle": {
+      "label": "Admin",
+      "openImage": "/images/cat-open.png",
+      "closeImage": "/images/cat-close.png"
+    },
+    "navItems": [
+      { "href": "#home", "label": "Home" },
+      { "href": "#about", "label": "About" },
+      { "href": "#status", "label": "Status" },
+      { "href": "#skills", "label": "Skills" },
+      { "href": "#experience", "label": "Experience" },
+      { "href": "#projects", "label": "Projects" },
+      { "href": "#contact", "label": "Contact" }
+    ]
+  },
+  "hero": {
+    "greeting": "Hello, I'm",
+    "firstName": "Dilan",
+    "lastName": "Nayak",
+    "roles": ["Full Stack Developer", "Java Developer", "Problem Solver"],
+    "description": "Passionate about creating beautiful, functional, and user-friendly applications. I turn ideas into reality with clean code and innovative solutions.",
+    "primaryButton": {
+      "label": "View My Work",
+      "target": "#about"
+    },
+    "secondaryButton": {
+      "label": "Download CV",
+      "url": "/resume/dilan-nayak-cv.pdf"
+    },
+    "socialLinks": [
+      {
+        "icon": "github",
+        "label": "GitHub",
+        "href": "https://github.com/dilan-nayak"
+      },
+      {
+        "icon": "linkedin",
+        "label": "LinkedIn",
+        "href": "https://www.linkedin.com/in/dilan-nayak/"
+      },
+      {
+        "icon": "mail",
+        "label": "Email",
+        "href": "mailto:dilannayak.work@gmail.com"
+      },
+      {
+        "icon": "twitter",
+        "label": "X",
+        "href": "https://x.com/dilan__nayak"
+      }
+    ],
+    "profileImage": {
+      "src": "/images/dilan.png",
+      "alt": "Dilan Nayak"
+    }
+  },
+  "about": {
+    "title": "About",
+    "titleHighlight": "Me",
+    "paragraphs": [
+      "I’m a backend-focused software engineer with ~4 years of experience building APIs and microservices using Java and Spring Boot. I spend most of my time designing clean backend logic, writing efficient SQL, and making systems more reliable and maintainable. When needed, I also step into the frontend with React to connect everything end-to-end.",
+      "I genuinely enjoy debugging, understanding why something breaks, and making it better is my favorite part of engineering. Recently, I’ve been diving deeper into system design and scalability, because great software isn’t just about code anymore; it’s about how systems behave at scale. I’m also exploring how AI can accelerate development, while focusing on the architectural thinking behind it.",
+      "Outside of tech, I enjoy fitness, badminton, football, chess, and occasionally getting lost in anime or games. I enjoy things that keep me active, competitive, and a little nerdy, especially those that challenge both body and mind through strategy, discipline, and fun."
+    ],
+    "images": [
+      {
+        "src": "/images/hero-workspace.JPG",
+        "alt": "Workspace"
+      },
+      {
+        "src": "/images/dilan.png",
+        "alt": "Dilan portrait"
+      },
+      {
+        "src": "/images/profile-photo.jpg",
+        "alt": "Profile photo"
+      },
+      {
+        "src": "/images/hero-background.jpg",
+        "alt": "Work desk"
+      },
+      {
+        "src": "/images/hero-background.jpg",
+        "alt": "Work desk"
+      },
+      {
+        "src": "/images/hero-background.jpg",
+        "alt": "Work desk"
+      },
+      {
+        "src": "/images/hero-background.jpg",
+        "alt": "Work desk"
+      }
+    ]
+  },
+  "skills": {
+    "title": "My",
+    "titleHighlight": "Skills",
+    "stackHeading": "Technology Stack",
+    "learningHeading": "Learning In Progress",
+    "technologies": [
+      {
+        "category": "Backend",
+        "techs": [
+          "Java",
+          "Spring Boot",
+          "Microservices",
+          "REST APIs",
+          "Hibernate / JPA",
+          "Apache Kafka"
+        ],
+        "color": "from-sky-700 to-blue-500"
+      },
+      {
+        "category": "Database",
+        "techs": ["PostgreSQL", "MySQL", "Redis", "SQL", "Query Optimization"],
+        "color": "from-emerald-700 to-green-500"
+      },
+      {
+        "category": "Frontend",
+        "techs": ["React", "JavaScript (ES6+)", "HTML5", "CSS3"],
+        "color": "from-red-600 to-orange-500"
+      },
+      {
+        "category": "Tools & Cloud",
+        "techs": [
+          "Git & GitHub",
+          "Docker",
+          "Postman",
+          "JUnit / Mockito",
+          "IntelliJ IDEA",
+          "AWS"
+        ],
+        "color": "from-amber-600 to-yellow-500"
+      }
+    ],
+    "learning": [
+      {
+        "title": "System Design Simplified",
+        "author": "interviewready - Gaurav Sen",
+        "courseLink": "https://interviewready.io/course-page/system-design-course",
+        "status": "in-progress",
+        "progress": 10,
+        "featuredInOverview": true
+      },
+
+      {
+        "title": "Spring Boot 4, Spring 7 & Hibernate for Beginners",
+        "author": "Udemy - Chad Darby",
+        "courseLink": "https://www.udemy.com/course/spring-hibernate-tutorial/",
+        "status": "completed",
+        "progress": 100,
+        "featuredInOverview": true
+      },
+
+      {
+        "title": "Java Masterclass 2025: 130+ Hours of Expert Lessons",
+        "author": "Udemy - Tim Buchalka, ",
+        "courseLink": "https://www.udemy.com/course/java-the-complete-java-developer-course/",
+        "status": "completed",
+        "progress": 100,
+        "featuredInOverview": true
+      },
+
+      {
+        "title": "The Complete JavaScript Course 2025: From Zero to Expert!",
+        "author": "Udemy - Jonas Schmedtmann",
+        "courseLink": "https://www.udemy.com/course/the-complete-javascript-course/",
+        "status": "in-progress",
+        "progress": 80,
+        "featuredInOverview": true
+      },
+
+      {
+        "title": "RESTful Web Services with Spring Framework - A quick start",
+        "author": "Udemy - Sergey Kargopolov",
+        "courseLink": "https://www.udemy.com/course/restful-web-services-with-spring-framework-a-quick-start/",
+        "status": "completed",
+        "progress": 100,
+        "featuredInOverview": false
+      },
+
+      {
+        "title": "Testing Java: JUnit 5, Mockito, Testcontainers, REST Assured",
+        "author": "Udemy - Sergey Kargopolov",
+        "courseLink": "https://www.udemy.com/course/testing-java-code-with-junit-5-and-mockito/",
+        "status": "completed",
+        "progress": 100,
+        "featuredInOverview": false
+      }
+    ]
+  },
+  "experience": {
+    "title": "Work Experience",
+    "careerStartDate": "2022-07-13",
+    "counterLabel": "Total ",
+    "companies": [
+      {
+        "companyShortName": "Blackboard",
+        "companyFullName": "Blackboard LMS",
+        "companyUrl": "https://www.blackboard.com/",
+        "totalDuration": "Mar 2026 - Present · 1 mo",
+        "positions": [
+          {
+            "title": "Software Engineer I",
+            "employmentType": "Full-time",
+            "duration": "Mar 2026 - Present · 1 mo",
+            "location": "Bengaluru, Karnataka, India · Hybrid",
+            "descriptions": [
+              "Leveraging AI-assisted development tools to improve development productivity and accelerate feature delivery.",
+              "Contributing to scalable backend services using Java and Spring Boot for the Blackboard Ultra LMS platform.",
+              "Delivered multiple LMS product features used by millions of learners while improving system reliability through testing and performance benchmarking.",
+              "Collaborating with cross-functional teams to deliver stable SaaS releases."
+            ]
+          }
+        ]
+      },
+      {
+        "companyShortName": "Anthology",
+        "companyFullName": "Anthology Inc",
+        "companyUrl": "https://www.anthology.com/",
+        "totalDuration": "Full-time · 3 yrs 9 mos",
+        "positions": [
+          {
+            "title": "Software Engineer",
+            "employmentType": "Full-time",
+            "duration": "Oct 2024 - Present · 1 yr 6 mos",
+            "location": "Bengaluru, Karnataka, India · Hybrid",
+            "descriptions": [
+              "Designed and implemented backend APIs using Java and Spring Boot for LMS product features.",
+              "Worked closely with product managers, designers, and engineers to deliver features end-to-end.",
+              "Owned small to mid-sized features independently, improving backend performance and database efficiency.",
+              "Gained experience in large-scale product development practices including code reviews, debugging, and Agile delivery.",
+              "Used AI-assisted development tools to improve coding efficiency, debugging, and development speed."
+            ]
+          },
+          {
+            "title": "Associate Software Engineer",
+            "employmentType": "Full-time",
+            "duration": "Jul 2022 - Oct 2024 · 2 yrs 4 mos",
+            "location": "Bengaluru, Karnataka, India",
+            "descriptions": [
+              "Developed backend features using Java and Spring Boot while working closely with senior developers and team leads on the Blackboard Ultra LMS platform.",
+              "Implemented REST APIs and PostgreSQL queries for LMS modules and contributed to bug fixes and feature enhancements."
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "title": "My",
+    "titleHighlight": "Projects",
+    "filters": ["All", "Web App", "Full Stack", "Company Work"],
+    "cards": [
+      {
+        "id": 1,
+        "title": "E-Commerce Platform",
+        "category": "Full Stack",
+        "description": "A modern e-commerce platform built with React, Node.js, and PostgreSQL. Features include user authentication, payment processing, and admin dashboard.",
+        "image": "/images/project-webapp.png",
+        "technologies": [
+          "React",
+          "Node.js",
+          "PostgreSQL",
+          "Stripe",
+          "TypeScript"
+        ],
+        "liveUrl": "#",
+        "githubUrl": "#"
+      },
+      {
+        "id": 2,
+        "title": "Task Management App",
+        "category": "Web App",
+        "description": "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
+        "image": "/images/project-react.png",
+        "technologies": ["React", "Firebase", "Framer Motion", "Tailwind CSS"],
+        "liveUrl": "#",
+        "githubUrl": "#"
+      },
+      {
+        "id": 3,
+        "title": "Mobile Fitness Tracker",
+        "category": "Mobile",
+        "description": "Cross-platform mobile app for fitness tracking with workout plans, progress monitoring, and social features.",
+        "image": "/images/project-mobile.jpg",
+        "technologies": ["React Native", "Redux", "Node.js", "MongoDB"],
+        "liveUrl": "#",
+        "githubUrl": "#"
+      },
+      {
+        "id": 4,
+        "title": "Design System Library",
+        "category": "UI/UX",
+        "description": "Comprehensive design system and component library used across multiple projects to ensure consistency and efficiency.",
+        "image": "/images/project-webapp.png",
+        "technologies": ["React", "Storybook", "TypeScript", "Figma"],
+        "liveUrl": "#",
+        "githubUrl": "#"
+      }
+    ],
+    "cta": {
+      "liveDemo": "Live Demo",
+      "code": "Code"
+    }
+  },
+  "contact": {
+    "title": "Get In",
+    "titleHighlight": "Touch",
+    "connectHeading": "Let's Connect",
+    "followHeading": "Follow Me",
+    "contactInfo": [
+      {
+        "icon": "mail",
+        "title": "Email",
+        "content": "dilannayak.work@gmail.com",
+        "href": "mailto:dilannayak.work@gmail.com"
+      },
+      {
+        "icon": "phone",
+        "title": "Phone",
+        "content": "+91 7326097537",
+        "href": "tel:+917326097537"
+      },
+      {
+        "icon": "mapPin",
+        "title": "Location",
+        "content": "Bengaluru, INDIA",
+        "href": "https://www.google.com/maps/place/Bengaluru,+Karnataka/@12.9542802,77.4661309,74632m/data=!3m1!1e3!4m6!3m5!1s0x3bae1670c9b44e6d:0xf8dfc3e8517e4fe0!8m2!3d12.9628669!4d77.577509!16zL20vMDljMTc!5m2!1e2!1e4?entry=ttu&g_ep=EgoyMDI2MDMwNS4wIKXMDSoASAFQAw%3D%3D"
+      }
+    ],
+    "socialLinks": [
+      {
+        "icon": "github",
+        "name": "GitHub",
+        "href": "https://github.com/dilan-nayak",
+        "color": "hover:text-red-400"
+      },
+      {
+        "icon": "linkedin",
+        "name": "LinkedIn",
+        "href": "https://www.linkedin.com/in/dilan-nayak/",
+        "color": "hover:text-red-500"
+      },
+      {
+        "icon": "twitter",
+        "name": "X",
+        "href": "https://x.com/dilan__nayak",
+        "color": "hover:text-red-300"
+      }
+    ],
+    "form": {
+      "labels": {
+        "name": "Full Name",
+        "email": "Email Address",
+        "subject": "Subject",
+        "message": "Message"
+      },
+      "placeholders": {
+        "name": "Your full name",
+        "email": "your.email@example.com",
+        "subject": "What's this about?",
+        "message": "Type something"
+      },
+      "actions": {
+        "sending": "Sending...",
+        "submit": "Send Message"
+      },
+      "successMessage": "Thank you! Your message has been sent successfully. I'll get back to you soon.",
+      "errorMessage": "Message could not be sent. Please try again in a few minutes.",
+      "emailJs": {
+        "serviceId": "service_38mcheo",
+        "templateId": "template_lfxkmpp",
+        "publicKey": "x5ck-q-mqQ0boVwkq"
+      }
+    }
+  },
+  "status": {
+    "cards": [
+      {
+        "state": "active",
+        "title": "Looking for job opportunities",
+        "description": "I'm currently searching for new job opportunities for a full stack Developer. If you know of any openings or have any leads, please feel free to reach out!"
+      },
+      {
+        "state": "inactive",
+        "title": "Available for new projects",
+        "description": "I'm currently accepting new client work and interesting project collaborations."
+      }
+    ]
+  }
+}
