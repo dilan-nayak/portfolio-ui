@@ -14,6 +14,9 @@ const Header = ({ content }: HeaderProps) => {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [catImageErrored, setCatImageErrored] = useState(false);
+  const [activeSection, setActiveSection] = useState(
+    content.navItems[0]?.href ?? "#home",
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,6 +30,44 @@ const Header = ({ content }: HeaderProps) => {
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDarkMode);
   }, [isDarkMode]);
+
+  useEffect(() => {
+    const sectionElements = content.navItems
+      .map((item) => document.querySelector(item.href))
+      .filter((el): el is Element => Boolean(el));
+
+    if (!sectionElements.length) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (!visible?.target) {
+          return;
+        }
+
+        const matchingItem = content.navItems.find(
+          (item) => document.querySelector(item.href) === visible.target,
+        );
+
+        if (matchingItem) {
+          setActiveSection(matchingItem.href);
+        }
+      },
+      {
+        rootMargin: "-32% 0px -48% 0px",
+        threshold: [0.2, 0.4, 0.6],
+      },
+    );
+
+    sectionElements.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, [content.navItems]);
 
   useEffect(() => {
     if (!isMenuOpen) {
@@ -43,6 +84,7 @@ const Header = ({ content }: HeaderProps) => {
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
+      setActiveSection(href);
     }
     setIsMenuOpen(false);
   };
@@ -149,16 +191,26 @@ const Header = ({ content }: HeaderProps) => {
             </AnimatePresence>
           </div>
 
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center gap-2">
             {content.navItems.map((item) => (
               <motion.button
                 key={item.href}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => scrollToSection(item.href)}
-                className="theme-text-secondary text-zinc-700 dark:text-zinc-200 hover:text-[#8f332a] dark:hover:text-red-400 transition-colors duration-200 font-medium"
+                className={`relative px-3 py-2 rounded-lg transition-colors duration-200 font-medium ${
+                  activeSection === item.href
+                    ? "theme-text-primary text-zinc-900 dark:text-zinc-100"
+                    : "theme-text-secondary text-zinc-700 dark:text-zinc-200 hover:text-[#8f332a] dark:hover:text-red-400"
+                }`}
               >
                 {item.label}
+                {activeSection === item.href ? (
+                  <motion.span
+                    layoutId="active-nav-indicator"
+                    className="absolute left-3 right-3 -bottom-0.5 h-0.5 rounded-full theme-accent-bg bg-gradient-to-r from-slate-700 to-cyan-600 dark:from-red-600 dark:to-red-500"
+                  />
+                ) : null}
               </motion.button>
             ))}
 

@@ -9,6 +9,7 @@ import Contact from "./components/Contact";
 import Status from "./components/Status";
 import Footer from "./components/Footer";
 import type { PortfolioContent } from "./types/portfolio-content";
+import { resolvePortfolioContentAssets } from "./assets/portfolioAssetMap";
 
 import "./App.css";
 
@@ -26,7 +27,7 @@ function App() {
         }
 
         const data = (await response.json()) as PortfolioContent;
-        setContent(data);
+        setContent(resolvePortfolioContentAssets(data));
       } catch (error) {
         setContentError(error instanceof Error ? error.message : "Unknown error");
       }
@@ -57,12 +58,17 @@ function App() {
 
       <main className="overflow-hidden">
         <Hero content={content.hero} />
-        <About content={content.about} />
-        <Status content={content.status} />
-        <Skills content={content.skills} />
-        <WorkExperience content={content.experience} />
-        <Projects content={content.projects} />
-        <Contact content={content.contact} />
+
+        <div className="relative section-dots-fixed">
+          <div className="relative z-10">
+            <About content={content.about} />
+            <Status content={content.status} />
+            <Skills content={content.skills} />
+            <WorkExperience content={content.experience} />
+            <Projects content={content.projects} />
+            <Contact content={content.contact} />
+          </div>
+        </div>
       </main>
 
       <Footer hero={content.hero} />

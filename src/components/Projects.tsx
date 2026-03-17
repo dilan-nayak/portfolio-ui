@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { ExternalLink, Github, Play, Filter } from "lucide-react";
+import { Github } from "lucide-react";
 import type { PortfolioContent } from "@/types/portfolio-content";
 
 interface ProjectsProps {
@@ -14,12 +14,13 @@ const Projects = ({ content }: ProjectsProps) => {
     triggerOnce: true,
   });
 
-  const [activeFilter, setActiveFilter] = useState(content.filters[0] ?? "All");
+  // Filter state is intentionally disabled for now.
+  // const [activeFilter, setActiveFilter] = useState(content.filters[0] ?? "All");
 
-  const filteredProjects =
-    activeFilter === "All"
-      ? content.cards
-      : content.cards.filter((project) => project.category === activeFilter);
+  // Popup state is intentionally disabled for now.
+  // const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null);
+
+  const visibleProjects = content.cards;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -64,7 +65,7 @@ const Projects = ({ content }: ProjectsProps) => {
     <section
       id="projects"
       ref={ref}
-      className="py-24 min-h-screen bg-transparent"
+      className="py-16 md:py-24 bg-transparent"
     >
       <div className="container mx-auto px-6">
         <motion.div
@@ -72,7 +73,7 @@ const Projects = ({ content }: ProjectsProps) => {
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
         >
-          <motion.div variants={itemVariants} className="text-left mb-8">
+          <motion.div variants={itemVariants} className="text-left mb-10 md:mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold theme-text-primary text-zinc-900 dark:text-zinc-100 mb-6">
               {content.title}{" "}
               <span className="theme-accent-text bg-gradient-to-r from-slate-700 to-cyan-600 dark:from-red-600 dark:to-red-500 bg-clip-text text-transparent">
@@ -81,6 +82,7 @@ const Projects = ({ content }: ProjectsProps) => {
             </h2>
           </motion.div>
 
+          {/* Filter controls are intentionally disabled for now.
           <motion.div
             variants={itemVariants}
             className="flex flex-wrap justify-center gap-4 mb-10"
@@ -102,66 +104,38 @@ const Projects = ({ content }: ProjectsProps) => {
               </motion.button>
             ))}
           </motion.div>
+          */}
 
-          <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <AnimatePresence mode="wait">
-              {filteredProjects.map((project) => (
+          <motion.div layout className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+              {visibleProjects.map((project) => (
                 <motion.div
                   key={project.id}
                   layout
                   variants={cardVariants}
                   initial="hidden"
                   animate="visible"
-                  exit="exit"
-                  whileHover={{ y: -10, scale: 1.02 }}
-                  className="group relative theme-surface bg-zinc-200 dark:bg-zinc-900 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden"
+                  className="relative w-full max-w-sm overflow-hidden rounded-2xl border border-zinc-300/70 theme-surface bg-zinc-200 shadow-lg transition-all duration-200 hover:border-[#8f332a]/55 hover:shadow-[0_0_0_1px_rgba(143,51,42,0.18),0_0_22px_rgba(143,51,42,0.12)] dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-red-400/55 dark:hover:shadow-[0_0_0_1px_rgba(248,113,113,0.2),0_0_24px_rgba(239,68,68,0.14)] mx-auto"
                 >
-                  <div className="relative overflow-hidden">
+                  <div className="relative hidden overflow-hidden md:block">
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="h-56 w-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                    <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <motion.a
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="p-3 theme-surface bg-zinc-200/90 dark:bg-zinc-900/90 rounded-full theme-text-primary text-zinc-900 dark:text-zinc-100 hover:bg-zinc-300 dark:hover:bg-zinc-800 transition-colors duration-200"
-                        aria-label="View Live Project"
-                      >
-                        <ExternalLink className="w-5 h-5" />
-                      </motion.a>
-                      <motion.a
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="p-3 theme-surface bg-zinc-200/90 dark:bg-zinc-900/90 rounded-full theme-text-primary text-zinc-900 dark:text-zinc-100 hover:bg-zinc-300 dark:hover:bg-zinc-800 transition-colors duration-200"
-                        aria-label="View GitHub Repository"
-                      >
-                        <Github className="w-5 h-5" />
-                      </motion.a>
-                    </div>
                   </div>
 
-                  <div className="p-6">
+                  <div className="p-4 md:p-6">
                     <div className="flex items-center justify-between mb-3">
                       <span className="px-3 py-1 bg-[#8f332a]/15 dark:bg-red-900/30 text-[#8f332a] dark:text-red-400 text-sm font-medium rounded-full">
                         {project.category}
                       </span>
                     </div>
 
-                    <h3 className="text-xl font-bold theme-text-primary text-zinc-900 dark:text-zinc-100 mb-3 group-hover:text-[#8f332a] dark:group-hover:text-red-300 transition-colors duration-200">
+                    <h3 className="mb-2 text-lg font-bold theme-text-primary text-zinc-900 md:text-xl dark:text-zinc-100">
                       {project.title}
                     </h3>
 
-                    <p className="theme-text-secondary text-zinc-600 dark:text-zinc-400 mb-4 line-clamp-3">
+                    <p className="mb-4 line-clamp-3 text-sm theme-text-secondary text-zinc-600 dark:text-zinc-400 md:text-base">
                       {project.description}
                     </p>
 
@@ -176,25 +150,12 @@ const Projects = ({ content }: ProjectsProps) => {
                       ))}
                     </div>
 
-                    <div className="flex gap-3">
+                    <div className="flex">
                       <motion.a
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2 theme-accent-bg bg-gradient-to-r from-slate-700 to-cyan-600 dark:from-red-600 dark:to-red-500 text-white rounded-lg hover:shadow-lg transition-all duration-200"
-                      >
-                        <Play className="w-4 h-4" />
-                        {content.cta.liveDemo}
-                      </motion.a>
-                      <motion.a
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
                         href={project.githubUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center justify-center gap-2 px-4 py-2 border-2 theme-surface border-zinc-300 dark:border-zinc-700 theme-text-secondary text-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-zinc-300 dark:hover:bg-zinc-800 transition-all duration-200"
+                        className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-zinc-300 px-4 py-2 theme-surface theme-text-secondary text-zinc-700 transition-colors duration-200 hover:border-[#8f332a]/65 hover:bg-[#8f332a]/12 hover:text-[#8f332a] dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-red-400/60 dark:hover:bg-red-500/10 dark:hover:text-red-300"
                       >
                         <Github className="w-4 h-4" />
                         {content.cta.code}
@@ -203,8 +164,17 @@ const Projects = ({ content }: ProjectsProps) => {
                   </div>
                 </motion.div>
               ))}
-            </AnimatePresence>
           </motion.div>
+
+          {/* Project popup is intentionally disabled for now.
+          <AnimatePresence>
+            {selectedProject ? (
+              <motion.div>
+                ...
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+          */}
         </motion.div>
       </div>
     </section>
