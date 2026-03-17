@@ -53,7 +53,7 @@
       }
     ],
     "profileImage": {
-      "src": "/images/dilan.png",
+      "src": "/images/dilan.jpg",
       "alt": "Dilan Nayak"
     }
   },
@@ -67,32 +67,12 @@
     ],
     "images": [
       {
-        "src": "/images/hero-workspace.JPG",
-        "alt": "Workspace"
+        "src": "/images/mumbai.jpg",
+        "alt": "Mumbai skyline"
       },
       {
-        "src": "/images/dilan.png",
-        "alt": "Dilan portrait"
-      },
-      {
-        "src": "/images/profile-photo.jpg",
-        "alt": "Profile photo"
-      },
-      {
-        "src": "/images/hero-background.jpg",
-        "alt": "Work desk"
-      },
-      {
-        "src": "/images/hero-background.jpg",
-        "alt": "Work desk"
-      },
-      {
-        "src": "/images/hero-background.jpg",
-        "alt": "Work desk"
-      },
-      {
-        "src": "/images/hero-background.jpg",
-        "alt": "Work desk"
+        "src": "/images/sunset.jpg",
+        "alt": "Sunset over the sea"
       }
     ]
   },
@@ -254,53 +234,24 @@
   "projects": {
     "title": "My",
     "titleHighlight": "Projects",
-    "filters": ["All", "Web App", "Full Stack", "Company Work"],
+    "filters": [],
     "cards": [
       {
         "id": 1,
-        "title": "E-Commerce Platform",
-        "category": "Full Stack",
-        "description": "A modern e-commerce platform built with React, Node.js, and PostgreSQL. Features include user authentication, payment processing, and admin dashboard.",
-        "image": "/images/project-webapp.png",
+        "title": "LocalDrop",
+        "category": "Backend",
+        "description": "Real-time file sharing and messaging system for local networks using Spring Boot, WebSockets, and hybrid encryption.",
+        "image": "/images/localdrop.png",
         "technologies": [
-          "React",
-          "Node.js",
-          "PostgreSQL",
-          "Stripe",
-          "TypeScript"
+          "Java",
+          "Spring Boot",
+          "WebSocket",
+          "Encryption",
+          "LAN",
+          "Real-Time Chat"
         ],
-        "liveUrl": "#",
-        "githubUrl": "#"
-      },
-      {
-        "id": 2,
-        "title": "Task Management App",
-        "category": "Web App",
-        "description": "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
-        "image": "/images/project-react.png",
-        "technologies": ["React", "Firebase", "Framer Motion", "Tailwind CSS"],
-        "liveUrl": "#",
-        "githubUrl": "#"
-      },
-      {
-        "id": 3,
-        "title": "Mobile Fitness Tracker",
-        "category": "Mobile",
-        "description": "Cross-platform mobile app for fitness tracking with workout plans, progress monitoring, and social features.",
-        "image": "/images/project-mobile.jpg",
-        "technologies": ["React Native", "Redux", "Node.js", "MongoDB"],
-        "liveUrl": "#",
-        "githubUrl": "#"
-      },
-      {
-        "id": 4,
-        "title": "Design System Library",
-        "category": "UI/UX",
-        "description": "Comprehensive design system and component library used across multiple projects to ensure consistency and efficiency.",
-        "image": "/images/project-webapp.png",
-        "technologies": ["React", "Storybook", "TypeScript", "Figma"],
-        "liveUrl": "#",
-        "githubUrl": "#"
+        "liveUrl": "https://github.com/dilan-nayak/localdrop/blob/main/README.md",
+        "githubUrl": "https://github.com/dilan-nayak/localdrop"
       }
     ],
     "cta": {
@@ -388,8 +339,8 @@
       },
       {
         "state": "inactive",
-        "title": "Available for new projects",
-        "description": "I'm currently accepting new client work and interesting project collaborations."
+        "title": "Not available for new projects right now",
+        "description": "I am currently not taking on new project work. Once I reopen project availability, I will update this section."
       }
     ]
   }

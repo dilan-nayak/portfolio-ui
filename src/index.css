@@ -60,8 +60,37 @@
     background-size: 20px 20px;
   }
 
-  .dark .bg-dot-pattern {
+.dark .bg-dot-pattern {
     background-image: radial-gradient(circle, #374151 1px, transparent 1px);
+  }
+
+  /* Thin, glowing horizontal scrollbar for About image strip */
+  .about-image-strip {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(199, 88, 69, 0.95) transparent;
+  }
+
+  .about-image-strip::-webkit-scrollbar {
+    height: 3px;
+  }
+
+  .about-image-strip::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .about-image-strip::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #8f332a 0%, #c75845 100%);
+    border-radius: 999px;
+    box-shadow: 0 0 8px rgba(199, 88, 69, 0.7);
+  }
+
+  .dark .about-image-strip {
+    scrollbar-color: rgba(248, 113, 113, 0.95) transparent;
+  }
+
+  .dark .about-image-strip::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #ef4444 0%, #fb7185 100%);
+    box-shadow: 0 0 10px rgba(248, 113, 113, 0.75);
   }
 
   .text-shadow {
@@ -120,10 +149,7 @@ img {
   transition: opacity 0.3s ease-in-out;
 }
 
-img[loading] {
-  opacity: 0;
-}
-
+img[loading],
 img:not([loading]) {
   opacity: 1;
 }

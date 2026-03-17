@@ -104,7 +104,7 @@ const Skills = ({ content }: SkillsProps) => {
     <section
       id="skills"
       ref={ref}
-      className="py-24 min-h-screen bg-transparent"
+      className="py-16 md:py-24 bg-transparent"
     >
       <div className="container mx-auto px-8">
         <motion.div
@@ -112,7 +112,7 @@ const Skills = ({ content }: SkillsProps) => {
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
         >
-          <motion.div variants={itemVariants} className="text-left mb-16">
+          <motion.div variants={itemVariants} className="text-left mb-10 md:mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold theme-text-primary text-zinc-900 dark:text-zinc-100 mb-6">
               {content.title}{" "}
               <span className="theme-accent-text bg-gradient-to-r from-slate-700 to-cyan-600 dark:from-red-600 dark:to-red-500 bg-clip-text text-transparent">
@@ -121,7 +121,7 @@ const Skills = ({ content }: SkillsProps) => {
             </h2>
           </motion.div>
 
-          <div className="flex flex-col lg:flex-row gap-8 mb-20 items-stretch">
+          <div className="mb-14 flex flex-col gap-8 items-stretch lg:mb-20 lg:flex-row">
             <motion.div variants={itemVariants} className="flex-1 w-full">
               <h3 className="text-2xl font-bold theme-text-primary text-zinc-900 dark:text-zinc-100 mb-8 text-left">
                 {content.stackHeading}
@@ -188,7 +188,7 @@ const Skills = ({ content }: SkillsProps) => {
               <div className="w-px bg-gradient-to-b from-[#8f332a] via-zinc-700 to-[#c75845] dark:from-red-700 dark:to-amber-400 opacity-100 h-full" />
             </div>
 
-            <motion.div variants={itemVariants} className="flex-1 w-full relative">
+            <motion.div variants={itemVariants} className="relative mt-12 w-full border-t border-zinc-200/70 pt-12 dark:border-zinc-800/80 lg:mt-0 lg:border-t-0 lg:pt-0 flex-1">
               <h3 className="text-2xl font-bold theme-text-primary text-zinc-900 dark:text-zinc-100 mb-8 text-left">
                 {content.learningHeading}
               </h3>

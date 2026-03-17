@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, Download, Twitter, MessageCircle } from "lucide-react";
 import type { IconKey, PortfolioContent } from "@/types/portfolio-content";
@@ -18,10 +18,28 @@ const iconMap: Record<IconKey, React.ComponentType<{ className?: string }>> = {
 };
 
 const Hero = ({ content }: HeroProps) => {
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
   const renderSocialIcon = (icon: IconKey) => {
     const Icon = iconMap[icon] ?? Mail;
     return <Icon className="w-6 h-6" />;
   };
+
+  const cardTransform = useMemo(
+    () => `perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+    [tilt],
+  );
+
+  const handleTilt = (event: React.MouseEvent<HTMLDivElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const y = ((event.clientX - centerX) / rect.width) * 10;
+    const x = ((centerY - event.clientY) / rect.height) * 8;
+    setTilt({ x, y });
+  };
+
+  const resetTilt = () => setTilt({ x: 0, y: 0 });
 
   return (
     <section
@@ -29,9 +47,9 @@ const Hero = ({ content }: HeroProps) => {
       className="min-h-screen pt-24 md:pt-28 lg:pt-24 flex items-center justify-center relative overflow-hidden"
     >
       <div className="absolute inset-0">
-        <div className="absolute top-16 left-12 h-72 w-72 rounded-full bg-[#a33a2f]/10 dark:bg-red-600/15 blur-3xl" />
-        <div className="absolute bottom-12 right-12 h-80 w-80 rounded-full bg-[#2f343c]/15 dark:bg-red-900/20 blur-3xl" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(8,145,178,0.12),transparent_42%),radial-gradient(circle_at_80%_75%,rgba(220,38,38,0.12),transparent_45%)] dark:bg-[radial-gradient(circle_at_20%_20%,rgba(239,68,68,0.15),transparent_42%),radial-gradient(circle_at_80%_75%,rgba(245,158,11,0.1),transparent_45%)]" />
+        <div className="absolute top-16 left-12 h-72 w-72 rounded-full bg-[#b5453a]/22 dark:bg-red-600/15 blur-3xl" />
+        <div className="absolute bottom-12 right-12 h-80 w-80 rounded-full bg-[#7a2b25]/16 dark:bg-red-900/20 blur-3xl" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(181,69,58,0.22),transparent_40%),radial-gradient(circle_at_82%_76%,rgba(122,43,37,0.18),transparent_45%),radial-gradient(circle_at_62%_46%,rgba(8,145,178,0.08),transparent_44%)] dark:bg-[radial-gradient(circle_at_20%_20%,rgba(239,68,68,0.15),transparent_42%),radial-gradient(circle_at_80%_75%,rgba(245,158,11,0.1),transparent_45%)]" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -66,7 +84,7 @@ const Hero = ({ content }: HeroProps) => {
                 href={content.secondaryButton.url}
                 target="_blank"
                 rel="noreferrer"
-                className="px-8 py-4 border-2 theme-accent-border border-cyan-700 dark:border-red-600 text-cyan-700 dark:text-red-400 font-semibold rounded-xl hover:bg-[#8f332a] dark:hover:bg-red-600 hover:text-white transition-all duration-300 flex items-center justify-center gap-2"
+                className="flex items-center justify-center gap-2 rounded-xl border-2 border-[#8f332a]/75 px-8 py-4 font-semibold text-[#8f332a] transition-colors duration-200 hover:bg-[#8f332a]/8 hover:text-[#702821] dark:border-red-500/75 dark:text-red-400 dark:hover:bg-red-500/10 dark:hover:text-red-300"
               >
                 <Download className="w-5 h-5" />
                 {content.secondaryButton.label}
@@ -121,6 +139,9 @@ const Hero = ({ content }: HeroProps) => {
                 className="relative rounded-[2.2rem] border theme-surface border-zinc-300/70 dark:border-zinc-700/70 bg-zinc-100/75 dark:bg-zinc-900/65 p-3 shadow-2xl backdrop-blur"
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.25 }}
+                onMouseMove={handleTilt}
+                onMouseLeave={resetTilt}
+                style={{ transform: cardTransform, transformStyle: "preserve-3d" }}
               >
                 <div className="overflow-hidden rounded-[1.8rem]">
                   <img
