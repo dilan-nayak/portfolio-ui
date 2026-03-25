@@ -129,7 +129,7 @@ const Contact = ({ content }: ContactProps) => {
     <section
       id="contact"
       ref={ref}
-      className="py-16 md:py-24 bg-transparent"
+      className="py-8 md:py-24 bg-transparent"
     >
       <div className="container mx-auto px-6">
         <motion.div
@@ -137,7 +137,7 @@ const Contact = ({ content }: ContactProps) => {
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
         >
-          <motion.div variants={itemVariants} className="text-left mb-10 md:mb-16">
+          <motion.div variants={itemVariants} className="text-left mb-6 md:mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold theme-text-primary text-zinc-900 dark:text-zinc-100 mb-6">
               {content.title}{" "}
               <span className="theme-accent-text bg-gradient-to-r from-slate-700 to-cyan-600 dark:from-red-600 dark:to-red-500 bg-clip-text text-transparent">
@@ -208,7 +208,7 @@ const Contact = ({ content }: ContactProps) => {
 
             <motion.div variants={itemVariants}>
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="flex flex-wrap gap-2">
+                <div className="hidden md:flex md:flex-wrap gap-2">
                   {quickIntents.map((intent) => (
                     <button
                       key={intent}

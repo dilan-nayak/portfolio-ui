@@ -8,14 +8,14 @@ interface StatusProps {
 
 const Status = ({ content }: StatusProps) => {
   return (
-    <section id="status" className="py-16 md:py-24 bg-transparent">
+    <section id="status" className="py-8 md:py-24 bg-transparent">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: 0.55 }}
-          className="mb-10 md:mb-16"
+          className="mb-6 md:mb-16"
         >
           <h2 className="text-4xl lg:text-5xl font-bold theme-text-primary text-zinc-900 dark:text-zinc-100">
             Current{" "}

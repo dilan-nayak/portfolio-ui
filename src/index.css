@@ -65,33 +65,19 @@
     background-image: radial-gradient(circle, #374151 1px, transparent 1px);
   }
 
-  /* Thin, glowing horizontal scrollbar for About image strip */
+  /* Hide scrollbar for About image strip while keeping horizontal scroll active */
   .about-image-strip {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(199, 88, 69, 0.95) transparent;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
   .about-image-strip::-webkit-scrollbar {
-    height: 3px;
-  }
-
-  .about-image-strip::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .about-image-strip::-webkit-scrollbar-thumb {
-    background: linear-gradient(90deg, #8f332a 0%, #c75845 100%);
-    border-radius: 999px;
-    box-shadow: 0 0 8px rgba(199, 88, 69, 0.7);
+    display: none;
   }
 
   .dark .about-image-strip {
-    scrollbar-color: rgba(248, 113, 113, 0.95) transparent;
-  }
-
-  .dark .about-image-strip::-webkit-scrollbar-thumb {
-    background: linear-gradient(90deg, #ef4444 0%, #fb7185 100%);
-    box-shadow: 0 0 10px rgba(248, 113, 113, 0.75);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
   .text-shadow {
