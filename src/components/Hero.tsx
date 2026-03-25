@@ -1,27 +1,18 @@
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, Download, Twitter, MessageCircle } from "lucide-react";
+import { Download } from "lucide-react";
+import { iconMap } from "@/lib/icons";
 import type { IconKey, PortfolioContent } from "@/types/portfolio-content";
 
 interface HeroProps {
   content: PortfolioContent["hero"];
 }
 
-const iconMap: Record<IconKey, React.ComponentType<{ className?: string }>> = {
-  github: Github,
-  linkedin: Linkedin,
-  mail: Mail,
-  phone: Mail,
-  mapPin: Mail,
-  twitter: Twitter,
-  messageCircle: MessageCircle,
-};
-
 const Hero = ({ content }: HeroProps) => {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
   const renderSocialIcon = (icon: IconKey) => {
-    const Icon = iconMap[icon] ?? Mail;
+    const Icon = iconMap[icon] ?? iconMap.mail;
     return <Icon className="w-6 h-6" />;
   };
 
@@ -53,18 +44,18 @@ const Hero = ({ content }: HeroProps) => {
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-5 items-center gap-10">
+        <div className="grid lg:grid-cols-2 items-center gap-8 lg:gap-10">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="lg:col-span-2 text-center lg:text-left"
+            className="mx-auto w-full max-w-xl text-center lg:mx-0 lg:text-left"
           >
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35, duration: 0.6 }}
-              className="mt-4 text-5xl lg:text-7xl font-bold theme-text-primary text-zinc-900 dark:text-zinc-100 leading-[0.95]"
+              className="text-5xl lg:text-6xl xl:text-7xl font-bold theme-text-primary text-zinc-900 dark:text-zinc-100 leading-[0.95]"
             >
               {content.firstName}{" "}
               <span className="theme-accent-text bg-gradient-to-r from-slate-700 to-cyan-600 dark:from-red-600 dark:to-red-500 bg-clip-text text-transparent">
@@ -76,7 +67,7 @@ const Hero = ({ content }: HeroProps) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.55, duration: 0.6 }}
-              className="flex mb-8 mt-8 justify-center lg:justify-start"
+              className="mt-8 flex flex-wrap gap-4 mb-7 justify-center lg:justify-start"
             >
               <motion.a
                 whileHover={{ scale: 1.05 }}
@@ -84,7 +75,7 @@ const Hero = ({ content }: HeroProps) => {
                 href={content.secondaryButton.url}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center justify-center gap-2 rounded-xl border-2 border-[#8f332a]/75 px-8 py-4 font-semibold text-[#8f332a] transition-colors duration-200 hover:bg-[#8f332a]/8 hover:text-[#702821] dark:border-red-500/75 dark:text-red-400 dark:hover:bg-red-500/10 dark:hover:text-red-300"
+                className="flex items-center justify-center gap-2 rounded-xl px-8 py-4 font-semibold theme-accent-bg bg-gradient-to-r from-slate-700 to-cyan-600 text-white shadow-lg transition-all duration-200 hover:shadow-xl dark:from-red-600 dark:to-red-500"
               >
                 <Download className="w-5 h-5" />
                 {content.secondaryButton.label}
@@ -95,7 +86,7 @@ const Hero = ({ content }: HeroProps) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.6 }}
-              className="flex gap-6 justify-center lg:justify-start"
+              className="flex gap-5 justify-center lg:justify-start"
             >
               {content.socialLinks.map(({ icon, href, label }) => {
                 return (
@@ -120,7 +111,7 @@ const Hero = ({ content }: HeroProps) => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="lg:col-span-3 flex justify-center lg:justify-end"
+            className="flex justify-center lg:justify-end"
           >
             <div className="relative w-full max-w-[560px]">
               <motion.div
@@ -141,13 +132,17 @@ const Hero = ({ content }: HeroProps) => {
                 transition={{ duration: 0.25 }}
                 onMouseMove={handleTilt}
                 onMouseLeave={resetTilt}
-                style={{ transform: cardTransform, transformStyle: "preserve-3d" }}
+                style={{
+                  transform: cardTransform,
+                  transformStyle: "preserve-3d",
+                }}
               >
                 <div className="overflow-hidden rounded-[1.8rem]">
                   <img
                     src={content.profileImage.src}
                     alt={content.profileImage.alt}
                     className="w-full aspect-[4/5] object-cover"
+                    fetchPriority="high"
                   />
                 </div>
 
