@@ -8,6 +8,7 @@ import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Status from "./components/Status";
 import Footer from "./components/Footer";
+import TubesCursor from "./components/TubesCursor";
 import type { PortfolioContent } from "./types/portfolio-content";
 import { resolvePortfolioContentAssets } from "./assets/portfolioAssetMap";
 
@@ -54,6 +55,7 @@ function App() {
 
   return (
     <div className="min-h-screen theme-page bg-zinc-100 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+      <TubesCursor />
       <Header content={content.header} />
 
       <main className="overflow-hidden">

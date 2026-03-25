@@ -1,31 +1,13 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Send,
-  Github,
-  Linkedin,
-  Twitter,
-  MessageCircle,
-} from "lucide-react";
+import { Send } from "lucide-react";
+import { iconMap } from "@/lib/icons";
 import type { IconKey, PortfolioContent } from "@/types/portfolio-content";
 
 interface ContactProps {
   content: PortfolioContent["contact"];
 }
-
-const iconMap: Record<IconKey, React.ComponentType<{ className?: string }>> = {
-  github: Github,
-  linkedin: Linkedin,
-  mail: Mail,
-  phone: Phone,
-  mapPin: MapPin,
-  twitter: Twitter,
-  messageCircle: MessageCircle,
-};
 
 const Contact = ({ content }: ContactProps) => {
   const [ref, inView] = useInView({
@@ -111,7 +93,7 @@ const Contact = ({ content }: ContactProps) => {
     /^(https?:|mailto:|tel:)/i.test(href);
 
   const renderSocialIcon = (icon: IconKey) => {
-    const Icon = iconMap[icon] ?? Mail;
+    const Icon = iconMap[icon] ?? iconMap.mail;
     return <Icon className="w-6 h-6" />;
   };
 
@@ -172,7 +154,7 @@ const Contact = ({ content }: ContactProps) => {
 
               <div className="space-y-6 mb-8">
                 {content.contactInfo.map((info) => {
-                  const Icon = iconMap[info.icon] ?? Mail;
+                  const Icon = iconMap[info.icon] ?? iconMap.mail;
 
                   return (
                     <motion.a
