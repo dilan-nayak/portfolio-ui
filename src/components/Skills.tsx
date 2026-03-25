@@ -104,7 +104,7 @@ const Skills = ({ content }: SkillsProps) => {
     <section
       id="skills"
       ref={ref}
-      className="py-16 md:py-24 bg-transparent"
+      className="py-8 md:py-24 bg-transparent"
     >
       <div className="container mx-auto px-8">
         <motion.div
@@ -112,7 +112,7 @@ const Skills = ({ content }: SkillsProps) => {
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
         >
-          <motion.div variants={itemVariants} className="text-left mb-10 md:mb-16">
+          <motion.div variants={itemVariants} className="text-left mb-6 md:mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold theme-text-primary text-zinc-900 dark:text-zinc-100 mb-6">
               {content.title}{" "}
               <span className="theme-accent-text bg-gradient-to-r from-slate-700 to-cyan-600 dark:from-red-600 dark:to-red-500 bg-clip-text text-transparent">
@@ -121,12 +121,40 @@ const Skills = ({ content }: SkillsProps) => {
             </h2>
           </motion.div>
 
-          <div className="mb-14 flex flex-col gap-8 items-stretch lg:mb-20 lg:flex-row">
+          <div className="mb-8 flex flex-col gap-8 items-stretch lg:mb-20 lg:flex-row">
             <motion.div variants={itemVariants} className="flex-1 w-full">
               <h3 className="text-2xl font-bold theme-text-primary text-zinc-900 dark:text-zinc-100 mb-8 text-left">
                 {content.stackHeading}
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 items-start">
+              <div className="space-y-10 md:hidden">
+                {content.technologies.map((category) => (
+                  <motion.div
+                    key={category.category}
+                    whileHover={{ x: 2 }}
+                    className="transition-all duration-300"
+                  >
+                    <div className="inline-flex items-center gap-3 mb-3">
+                      <span className="h-4 w-1.5 rounded-full bg-[#9f3a30] dark:bg-red-500" />
+                      <h4 className="text-2xl font-bold text-[#9f3a30] dark:text-red-400 tracking-tight">
+                        {category.category}
+                      </h4>
+                    </div>
+                    <div className="flex flex-wrap gap-3 pl-5">
+                      {category.techs.map((tech) => (
+                        <motion.span
+                          key={`${category.category}-${tech}`}
+                          whileHover={{ scale: 1.04 }}
+                          className="px-3 py-1 rounded-lg text-sm font-medium theme-surface-soft bg-zinc-100 dark:bg-zinc-800 theme-text-secondary text-zinc-700 dark:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors duration-200"
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="hidden md:grid md:grid-cols-2 md:gap-x-12 md:items-start">
                 <div className="space-y-14">
                   {leftColumnTechnologies.map((category) => (
                     <motion.div
@@ -188,7 +216,7 @@ const Skills = ({ content }: SkillsProps) => {
               <div className="w-px bg-gradient-to-b from-[#8f332a] via-zinc-700 to-[#c75845] dark:from-red-700 dark:to-amber-400 opacity-100 h-full" />
             </div>
 
-            <motion.div variants={itemVariants} className="relative mt-12 w-full border-t border-zinc-200/70 pt-12 dark:border-zinc-800/80 lg:mt-0 lg:border-t-0 lg:pt-0 flex-1">
+            <motion.div variants={itemVariants} className="relative mt-8 w-full border-t border-zinc-200/70 pt-8 dark:border-zinc-800/80 lg:mt-0 lg:border-t-0 lg:pt-0 flex-1">
               <h3 className="text-2xl font-bold theme-text-primary text-zinc-900 dark:text-zinc-100 mb-8 text-left">
                 {content.learningHeading}
               </h3>
@@ -248,12 +276,12 @@ const Skills = ({ content }: SkillsProps) => {
                       whileHover={{ scale: 1.02 }}
                       className="p-3 theme-surface bg-zinc-200 dark:bg-zinc-900 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
                     >
-                      <div className="flex flex-wrap items-center justify-between gap-2 mb-0.5">
-                        <h4 className="text-sm font-bold leading-snug theme-text-primary text-zinc-900 dark:text-zinc-100">
+                      <div className="mb-0.5 flex items-start justify-between gap-2">
+                        <h4 className="min-w-0 flex-1 text-sm font-bold leading-snug theme-text-primary text-zinc-900 dark:text-zinc-100">
                           {course.title}
                         </h4>
                         <span
-                          className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${
+                          className={`shrink-0 whitespace-nowrap text-[11px] font-semibold px-2 py-0.5 rounded-full ${
                             isCompleted(course.status)
                               ? "bg-emerald-200 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300"
                               : "bg-amber-200 text-amber-800 dark:bg-amber-900/60 dark:text-amber-300"

@@ -87,7 +87,7 @@ const WorkExperience = ({ content }: WorkExperienceProps) => {
     <section
       id="experience"
       ref={ref}
-      className="py-16 md:py-24 bg-transparent"
+      className="py-8 md:py-24 bg-transparent"
     >
       <div className="container mx-auto px-6">
         <motion.div
@@ -95,7 +95,7 @@ const WorkExperience = ({ content }: WorkExperienceProps) => {
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
         >
-          <motion.div variants={itemVariants} className="mb-10 md:mb-16">
+          <motion.div variants={itemVariants} className="mb-6 md:mb-16">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <h2 className="text-4xl lg:text-5xl font-bold theme-text-primary text-zinc-900 dark:text-zinc-100">
                 <span className="theme-accent-text bg-gradient-to-r from-slate-700 to-cyan-600 dark:from-red-600 dark:to-red-500 bg-clip-text text-transparent">
