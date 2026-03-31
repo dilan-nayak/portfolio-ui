@@ -1,80 +1,63 @@
-import React, { useEffect, useState } from "react";
-import Header from "./components/Header";
-import Hero from "./components/Hero";
-import About from "./components/About";
-import Skills from "./components/Skills";
-import WorkExperience from "./components/WorkExperience";
-import Projects from "./components/Projects";
-import Contact from "./components/Contact";
-import Status from "./components/Status";
-import Footer from "./components/Footer";
-import TubesCursor from "./components/TubesCursor";
-import type { PortfolioContent } from "./types/portfolio-content";
-import { resolvePortfolioContentAssets } from "./assets/portfolioAssetMap";
+import React, { Suspense, lazy } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { AdminAuthProvider } from "@/admin/context/AdminAuthContext";
+import { PortfolioContentProvider } from "@/admin/context/PortfolioContentContext";
+import RequireAdmin from "@/admin/routes/RequireAdmin";
+import AdminLayout from "@/admin/components/AdminLayout";
 
 import "./App.css";
 
+const PublicPortfolioPage = lazy(() => import("@/pages/PublicPortfolioPage"));
+const AdminLoginPage = lazy(() => import("@/admin/pages/AdminLoginPage"));
+const AdminDashboardPage = lazy(() => import("@/admin/pages/AdminDashboardPage"));
+const HeroEditorPage = lazy(() => import("@/admin/pages/HeroEditorPage"));
+const AboutEditorPage = lazy(() => import("@/admin/pages/AboutEditorPage"));
+const StatusEditorPage = lazy(() => import("@/admin/pages/StatusEditorPage"));
+const SkillsEditorPage = lazy(() => import("@/admin/pages/SkillsEditorPage"));
+const LearningEditorPage = lazy(() => import("@/admin/pages/LearningEditorPage"));
+const ExperienceEditorPage = lazy(() => import("@/admin/pages/ExperienceEditorPage"));
+const ProjectsEditorPage = lazy(() => import("@/admin/pages/ProjectsEditorPage"));
+const ContactEditorPage = lazy(() => import("@/admin/pages/ContactEditorPage"));
+const SettingsEditorPage = lazy(() => import("@/admin/pages/SettingsEditorPage"));
+const AnalyticsPage = lazy(() => import("@/admin/pages/AnalyticsPage"));
+
+const LoadingScreen = () => (
+  <div className="min-h-screen flex items-center justify-center bg-zinc-100 text-zinc-800 dark:bg-zinc-950 dark:text-zinc-100">
+    Loading...
+  </div>
+);
+
 function App() {
-  const [content, setContent] = useState<PortfolioContent | null>(null);
-  const [contentError, setContentError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const loadContent = async () => {
-      try {
-        const response = await fetch("/portfolio-content.json");
-
-        if (!response.ok) {
-          throw new Error(`Failed to load content JSON: ${response.status}`);
-        }
-
-        const data = (await response.json()) as PortfolioContent;
-        setContent(resolvePortfolioContentAssets(data));
-      } catch (error) {
-        setContentError(error instanceof Error ? error.message : "Unknown error");
-      }
-    };
-
-    loadContent();
-  }, []);
-
-  if (contentError) {
-    return (
-      <div className="min-h-screen flex items-center justify-center theme-page bg-zinc-100 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 px-6">
-        <p className="text-center">Could not load portfolio content: {contentError}</p>
-      </div>
-    );
-  }
-
-  if (!content) {
-    return (
-      <div className="min-h-screen flex items-center justify-center theme-page bg-zinc-100 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
-        <p>Loading portfolio...</p>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen theme-page bg-zinc-100 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
-      <TubesCursor />
-      <Header content={content.header} />
+    <PortfolioContentProvider>
+      <AdminAuthProvider>
+        <Suspense fallback={<LoadingScreen />}>
+          <Routes>
+            <Route path="/" element={<PublicPortfolioPage />} />
+            <Route path="/admin/login" element={<AdminLoginPage />} />
 
-      <main className="overflow-hidden">
-        <Hero content={content.hero} />
+            <Route path="/admin" element={<RequireAdmin />}>
+              <Route element={<AdminLayout />}>
+                <Route index element={<Navigate to="dashboard" replace />} />
+                <Route path="dashboard" element={<AdminDashboardPage />} />
+                <Route path="home" element={<HeroEditorPage />} />
+                <Route path="about" element={<AboutEditorPage />} />
+                <Route path="status" element={<StatusEditorPage />} />
+                <Route path="skills" element={<SkillsEditorPage />} />
+                <Route path="learning" element={<LearningEditorPage />} />
+                <Route path="experience" element={<ExperienceEditorPage />} />
+                <Route path="projects" element={<ProjectsEditorPage />} />
+                <Route path="contact" element={<ContactEditorPage />} />
+                <Route path="settings" element={<SettingsEditorPage />} />
+                <Route path="analytics" element={<AnalyticsPage />} />
+              </Route>
+            </Route>
 
-        <div className="relative section-dots-fixed">
-          <div className="relative z-10">
-            <About content={content.about} />
-            <Status content={content.status} />
-            <Skills content={content.skills} />
-            <WorkExperience content={content.experience} />
-            <Projects content={content.projects} />
-            <Contact content={content.contact} />
-          </div>
-        </div>
-      </main>
-
-      <Footer hero={content.hero} />
-    </div>
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Suspense>
+      </AdminAuthProvider>
+    </PortfolioContentProvider>
   );
 }
 

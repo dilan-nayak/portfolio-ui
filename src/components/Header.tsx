@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Code, Sun, Moon } from "lucide-react";
+import { SafeFaIcon } from "@/lib/icons";
 import type { PortfolioContent } from "@/types/portfolio-content";
 
 interface HeaderProps {
@@ -10,7 +10,6 @@ interface HeaderProps {
 const Header = ({ content }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
-  const [showAdminWarning, setShowAdminWarning] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [catImageErrored, setCatImageErrored] = useState(false);
@@ -97,21 +96,11 @@ const Header = ({ content }: HeaderProps) => {
     setIsAdminOpen((prev) => !prev);
   };
 
-  const handleAdminWarning = () => {
-    setShowAdminWarning(true);
+  const handleOpenAdmin = () => {
+    setIsAdminOpen(false);
+    setIsMenuOpen(false);
+    window.open("/admin", "_blank", "noopener,noreferrer");
   };
-
-  useEffect(() => {
-    if (!showAdminWarning) {
-      return;
-    }
-
-    const timeoutId = window.setTimeout(() => {
-      setShowAdminWarning(false);
-    }, 2400);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [showAdminWarning]);
 
   const adminConfig = content.adminToggle;
   const catImageSrc = isAdminOpen
@@ -148,7 +137,7 @@ const Header = ({ content }: HeaderProps) => {
                     onError={() => setCatImageErrored(true)}
                   />
                 ) : (
-                  <Code className="w-6 h-6 text-white" />
+                  <SafeFaIcon value={{ library: "fas", icon: "code" }} className="w-6 h-6 text-white" />
                 )}
               </motion.button>
             </div>
@@ -163,7 +152,7 @@ const Header = ({ content }: HeaderProps) => {
                 >
                   <button
                     type="button"
-                    onClick={handleAdminWarning}
+                    onClick={handleOpenAdmin}
                     className="flex items-center gap-2 px-3 py-2 rounded-xl theme-surface-soft bg-zinc-200/90 dark:bg-zinc-900/85 border border-zinc-300 dark:border-zinc-700 hover:border-[#9f3a30]/70 dark:hover:border-red-500/70 transition-colors"
                   >
                     <span className="text-sm font-bold theme-text-primary text-zinc-900 dark:text-zinc-100 whitespace-nowrap">
@@ -174,21 +163,6 @@ const Header = ({ content }: HeaderProps) => {
               )}
             </AnimatePresence>
 
-            <AnimatePresence>
-              {showAdminWarning && (
-                <motion.div
-                  initial={{ opacity: 0, y: 8, scale: 0.97 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 6, scale: 0.97 }}
-                  className="absolute top-14 left-16 z-50 w-72 rounded-2xl border border-amber-300/70 dark:border-amber-500/40 bg-gradient-to-br from-zinc-100 via-amber-50 to-red-100 dark:from-zinc-900 dark:via-zinc-900 dark:to-red-950/70 px-4 py-3 shadow-2xl backdrop-blur"
-                >
-                  <div className="pointer-events-none absolute -top-1.5 left-6 h-3 w-3 rotate-45 bg-amber-50 dark:bg-zinc-900 border-l border-t border-amber-300/70 dark:border-amber-500/40" />
-                  <p className="text-xs font-semibold theme-text-primary text-zinc-800 dark:text-zinc-100">
-                    Meow. Don't touch me, you are not my owner.
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
           </div>
 
           <div className="hidden md:flex items-center gap-2">
@@ -221,9 +195,9 @@ const Header = ({ content }: HeaderProps) => {
               className="p-2 rounded-lg theme-surface bg-zinc-200/90 dark:bg-zinc-900/80 hover:bg-zinc-300 dark:hover:bg-zinc-800 transition-colors duration-200"
             >
               {isDarkMode ? (
-                <Sun className="w-5 h-5 text-yellow-500" />
+                <SafeFaIcon value={{ library: "fas", icon: "sun" }} className="w-5 h-5 text-yellow-500" />
               ) : (
-                <Moon className="w-5 h-5 text-zinc-700" />
+                <SafeFaIcon value={{ library: "fas", icon: "moon" }} className="w-5 h-5 text-zinc-700" />
               )}
             </motion.button>
           </div>
@@ -236,9 +210,9 @@ const Header = ({ content }: HeaderProps) => {
               className="p-2 rounded-lg theme-surface bg-zinc-200/90 dark:bg-zinc-900/80"
             >
               {isDarkMode ? (
-                <Sun className="w-5 h-5 text-yellow-500" />
+                <SafeFaIcon value={{ library: "fas", icon: "sun" }} className="w-5 h-5 text-yellow-500" />
               ) : (
-                <Moon className="w-5 h-5 text-zinc-700" />
+                <SafeFaIcon value={{ library: "fas", icon: "moon" }} className="w-5 h-5 text-zinc-700" />
               )}
             </motion.button>
 
@@ -249,9 +223,9 @@ const Header = ({ content }: HeaderProps) => {
               className="p-2 rounded-lg theme-surface bg-zinc-200/90 dark:bg-zinc-900/80"
             >
               {isMenuOpen ? (
-                <X className="w-6 h-6 text-zinc-700 dark:text-zinc-200" />
+                <SafeFaIcon value={{ library: "fas", icon: "xmark" }} className="w-6 h-6 text-zinc-700 dark:text-zinc-200" />
               ) : (
-                <Menu className="w-6 h-6 text-zinc-700 dark:text-zinc-200" />
+                <SafeFaIcon value={{ library: "fas", icon: "bars" }} className="w-6 h-6 text-zinc-700 dark:text-zinc-200" />
               )}
             </motion.button>
           </div>
@@ -286,7 +260,7 @@ const Header = ({ content }: HeaderProps) => {
                   className="p-2 rounded-lg theme-surface-soft bg-zinc-200 dark:bg-zinc-800"
                   aria-label="Close menu"
                 >
-                  <X className="w-5 h-5 text-zinc-700 dark:text-zinc-200" />
+                  <SafeFaIcon value={{ library: "fas", icon: "xmark" }} className="w-5 h-5 text-zinc-700 dark:text-zinc-200" />
                 </button>
               </div>
 

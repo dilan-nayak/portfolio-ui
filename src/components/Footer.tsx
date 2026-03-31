@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowUp } from "lucide-react";
 import type { PortfolioContent } from "@/types/portfolio-content";
+import { SafeFaIcon } from "@/lib/icons";
 
 interface FooterProps {
   hero: PortfolioContent["hero"];
@@ -60,7 +60,7 @@ const Footer = ({ hero }: FooterProps) => {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border theme-surface-soft border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-900 theme-text-primary text-zinc-800 dark:text-zinc-100"
               aria-label="Back to top"
             >
-              <ArrowUp className="w-4 h-4" />
+              <SafeFaIcon value={{ library: "fas", icon: "arrow-up" }} className="w-4 h-4" />
               Top
             </motion.button>
           </div>

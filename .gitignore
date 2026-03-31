@@ -23,3 +23,5 @@ pnpm-debug.log*
 .idea/
 .vscode/
 
+# Local backend workspace
+portfolio-backend/

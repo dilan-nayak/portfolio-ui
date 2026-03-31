@@ -1,11 +1,24 @@
-export type IconKey =
+import type { IconLibrary, IconName } from "@/lib/icon-catalog";
+
+export interface IconValue {
+  library: IconLibrary;
+  icon: IconName;
+}
+
+export type LegacyIconKey =
   | "github"
   | "linkedin"
   | "mail"
   | "phone"
   | "mapPin"
   | "twitter"
-  | "messageCircle";
+  | "messageCircle"
+  | "email"
+  | "website"
+  | "globe"
+  | "x";
+
+export type IconInput = IconValue | LegacyIconKey;
 
 export interface PortfolioContent {
   header: {
@@ -19,15 +32,11 @@ export interface PortfolioContent {
     };
   };
   hero: {
-    greeting: string;
     firstName: string;
     lastName: string;
-    roles: string[];
-    description: string;
-    primaryButton: { label: string; target: string };
     secondaryButton: { label: string; url: string };
     socialLinks: Array<{
-      icon: IconKey;
+      icon: IconInput;
       label: string;
       href: string;
     }>;
@@ -35,7 +44,6 @@ export interface PortfolioContent {
   };
   about: {
     title: string;
-    titleHighlight: string;
     subtitle?: string;
     heading?: string;
     paragraphs: string[];
@@ -44,7 +52,6 @@ export interface PortfolioContent {
   };
   skills: {
     title: string;
-    titleHighlight: string;
     stackHeading: string;
     learningHeading: string;
     technologies: Array<{ category: string; techs: string[]; color: string }>;
@@ -78,7 +85,6 @@ export interface PortfolioContent {
   };
   projects: {
     title: string;
-    titleHighlight: string;
     filters: string[];
     cards: Array<{
       id: number;
@@ -89,22 +95,22 @@ export interface PortfolioContent {
       technologies: string[];
       liveUrl: string;
       githubUrl: string;
+      featured?: boolean;
     }>;
     cta: { liveDemo: string; code: string };
   };
   contact: {
     title: string;
-    titleHighlight: string;
     connectHeading: string;
     followHeading: string;
     contactInfo: Array<{
-      icon: IconKey;
+      icon: IconInput;
       title: string;
       content: string;
       href: string;
     }>;
     socialLinks: Array<{
-      icon: IconKey;
+      icon: IconInput;
       name: string;
       href: string;
       color: string;
@@ -134,12 +140,37 @@ export interface PortfolioContent {
         publicKey: string;
       };
     };
+    inquiryChips?: string[];
   };
   status: {
     cards: Array<{
       state: "active" | "inactive";
       title: string;
-      description: string;
+      description?: string;
+      activeDescription?: string;
+      inactiveDescription?: string;
+      cta?: {
+        label: string;
+        href: string;
+      };
+      visible?: boolean;
     }>;
+  };
+  ui?: {
+    sectionVisibility: {
+      home: boolean;
+      about: boolean;
+      status: boolean;
+      skills: boolean;
+      experience: boolean;
+      projects: boolean;
+      contact: boolean;
+    };
+    theme: {
+      lightAccentStart: string;
+      lightAccentEnd: string;
+      darkAccentStart: string;
+      darkAccentEnd: string;
+    };
   };
 }

@@ -1,8 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ExternalLink, ChevronRight } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import type { PortfolioContent } from "@/types/portfolio-content";
+import { SafeFaIcon } from "@/lib/icons";
+import SectionTitle from "@/components/SectionTitle";
+import { toSafeHref } from "@/lib/url-safety";
 
 interface WorkExperienceProps {
   content: PortfolioContent["experience"];
@@ -97,11 +99,7 @@ const WorkExperience = ({ content }: WorkExperienceProps) => {
         >
           <motion.div variants={itemVariants} className="mb-6 md:mb-16">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <h2 className="text-4xl lg:text-5xl font-bold theme-text-primary text-zinc-900 dark:text-zinc-100">
-                <span className="theme-accent-text bg-gradient-to-r from-slate-700 to-cyan-600 dark:from-red-600 dark:to-red-500 bg-clip-text text-transparent">
-                  {content.title}
-                </span>
-              </h2>
+              <SectionTitle title={content.title} />
 
               <div className="inline-flex items-center rounded-xl px-4 py-3 theme-accent-bg bg-slate-700 text-white dark:bg-red-700 shadow-lg sm:self-auto self-start">
                 <span className="font-semibold">
@@ -130,7 +128,8 @@ const WorkExperience = ({ content }: WorkExperienceProps) => {
                       style={{ WebkitTapHighlightColor: "transparent" }}
                     >
                       <span className="inline-flex items-center gap-2">
-                        <ChevronRight
+                        <SafeFaIcon
+                          value={{ library: "fas", icon: "chevron-right" }}
                           className={`w-4 h-4 transition-all duration-300 ${
                             isActive
                               ? "opacity-100 text-[#8f332a] dark:text-red-300"
@@ -166,13 +165,13 @@ const WorkExperience = ({ content }: WorkExperienceProps) => {
               >
                 <div className="mb-6">
                   <a
-                    href={active.companyUrl}
+                    href={toSafeHref(active.companyUrl)}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-2xl font-bold text-[#8f332a] dark:text-red-300 hover:text-[#702821] dark:hover:text-red-200 transition-colors"
                   >
                     {active.companyFullName}
-                    <ExternalLink className="w-4 h-4" />
+                    <SafeFaIcon value={{ library: "fas", icon: "arrow-up-right-from-square" }} className="w-4 h-4" />
                   </a>
                   {active.totalDuration ? (
                     <p className="theme-text-secondary text-zinc-600 dark:text-zinc-400 mt-2">{active.totalDuration}</p>
@@ -182,6 +181,7 @@ const WorkExperience = ({ content }: WorkExperienceProps) => {
                 <div className="space-y-8">
                   {active.positions.map((position, positionIndex) => {
                     const isLastPosition = positionIndex === active.positions.length - 1;
+                    const roleHighlights = position.descriptions.join("\n\n");
 
                     return (
                       <div
@@ -205,24 +205,18 @@ const WorkExperience = ({ content }: WorkExperienceProps) => {
                         ) : null}
 
                         <div className="mt-4 hidden space-y-3 md:block">
-                          {position.descriptions.map((description) => (
-                            <p key={description} className="theme-text-secondary text-zinc-700 dark:text-zinc-300 leading-relaxed">
-                              {description}
-                            </p>
-                          ))}
+                          <p className="theme-text-secondary text-zinc-700 dark:text-zinc-300 leading-relaxed whitespace-pre-wrap">
+                            {roleHighlights}
+                          </p>
                         </div>
 
                         <details className="mt-4 rounded-xl bg-zinc-200/70 px-4 py-3 dark:bg-zinc-800/60 md:hidden">
                           <summary className="cursor-pointer text-sm font-semibold text-[#8f332a] dark:text-red-300">
                             Role highlights
                           </summary>
-                          <div className="mt-3 space-y-3">
-                            {position.descriptions.map((description) => (
-                              <p key={`${description}-mobile`} className="theme-text-secondary text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
-                                {description}
-                              </p>
-                            ))}
-                          </div>
+                          <p className="mt-3 theme-text-secondary text-sm leading-relaxed text-zinc-700 dark:text-zinc-300 whitespace-pre-wrap">
+                            {roleHighlights}
+                          </p>
                         </details>
                       </div>
                     );
