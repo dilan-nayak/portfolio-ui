@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import type { PortfolioContent } from "@/types/portfolio-content";
+import SectionTitle from "@/components/SectionTitle";
 
 interface AboutProps {
   content: PortfolioContent["about"];
@@ -44,6 +45,7 @@ const About = ({ content }: AboutProps) => {
   const visibleImages = aboutImagesRaw.slice(0, 6);
   const mobileLoopImages =
     visibleImages.length > 1 ? [...visibleImages, ...visibleImages] : visibleImages;
+  const aboutText = content.paragraphs.join("\n\n");
 
   React.useEffect(() => {
     const strip = mobileImageStripRef.current;
@@ -89,21 +91,14 @@ const About = ({ content }: AboutProps) => {
           animate={inView ? "visible" : "hidden"}
         >
           <motion.div variants={itemVariants} className="text-left mb-6 md:mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold theme-text-primary text-zinc-900 dark:text-zinc-100 mb-6">
-              {content.title}{" "}
-              <span className="theme-accent-text bg-gradient-to-r from-slate-700 to-cyan-600 dark:from-red-600 dark:to-red-500 bg-clip-text text-transparent">
-                {content.titleHighlight}
-              </span>
-            </h2>
+            <SectionTitle title={content.title} className="mb-6" />
           </motion.div>
 
           <div className="mb-8 md:mb-28">
             <motion.div variants={itemVariants} className="max-w-4xl">
-              <div className="space-y-4 theme-text-secondary text-zinc-600 dark:text-zinc-400 text-lg leading-relaxed font-medium">
-                {content.paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-              </div>
+              <p className="theme-text-secondary text-zinc-600 dark:text-zinc-400 text-lg leading-relaxed font-medium whitespace-pre-wrap">
+                {aboutText}
+              </p>
             </motion.div>
           </div>
 

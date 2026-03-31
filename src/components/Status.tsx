@@ -1,12 +1,15 @@
 import React from "react";
 import { motion } from "framer-motion";
 import type { PortfolioContent } from "@/types/portfolio-content";
+import SectionTitle from "@/components/SectionTitle";
 
 interface StatusProps {
   content: PortfolioContent["status"];
 }
 
 const Status = ({ content }: StatusProps) => {
+  const visibleCards = content.cards.filter((card) => card.visible !== false);
+
   return (
     <section id="status" className="py-8 md:py-24 bg-transparent">
       <div className="container mx-auto px-6">
@@ -17,17 +20,15 @@ const Status = ({ content }: StatusProps) => {
           transition={{ duration: 0.55 }}
           className="mb-6 md:mb-16"
         >
-          <h2 className="text-4xl lg:text-5xl font-bold theme-text-primary text-zinc-900 dark:text-zinc-100">
-            Current{" "}
-            <span className="theme-accent-text bg-gradient-to-r from-slate-700 to-cyan-600 dark:from-red-600 dark:to-red-500 bg-clip-text text-transparent">
-              Status
-            </span>
-          </h2>
+          <SectionTitle title="Current Status" />
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-4 max-w-5xl">
-          {content.cards.map((card, index) => {
+          {visibleCards.map((card, index) => {
             const isAvailable = card.state === "active";
+            const dynamicDescription = isAvailable
+              ? card.activeDescription ?? card.description ?? ""
+              : card.inactiveDescription ?? card.description ?? "";
 
             return (
               <motion.div
@@ -59,14 +60,14 @@ const Status = ({ content }: StatusProps) => {
                   </h3>
                 </div>
                 <p className="text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed">
-                  {card.description}
+                  {dynamicDescription}
                 </p>
                 {isAvailable ? (
                   <a
-                    href="#contact"
+                    href={card.cta?.href ?? "#contact"}
                     className="inline-flex mt-3 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white hover:bg-emerald-700 transition-colors"
                   >
-                    Contact Me
+                    {card.cta?.label ?? "Contact Me"}
                   </a>
                 ) : null}
               </motion.div>

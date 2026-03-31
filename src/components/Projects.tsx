@@ -1,8 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Github } from "lucide-react";
+import { SafeFaIcon } from "@/lib/icons";
 import type { PortfolioContent } from "@/types/portfolio-content";
+import SectionTitle from "@/components/SectionTitle";
+import { toSafeHref } from "@/lib/url-safety";
 
 interface ProjectsProps {
   content: PortfolioContent["projects"];
@@ -74,12 +76,7 @@ const Projects = ({ content }: ProjectsProps) => {
           animate={inView ? "visible" : "hidden"}
         >
           <motion.div variants={itemVariants} className="text-left mb-6 md:mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold theme-text-primary text-zinc-900 dark:text-zinc-100 mb-6">
-              {content.title}{" "}
-              <span className="theme-accent-text bg-gradient-to-r from-slate-700 to-cyan-600 dark:from-red-600 dark:to-red-500 bg-clip-text text-transparent">
-                {content.titleHighlight}
-              </span>
-            </h2>
+            <SectionTitle title={content.title} className="mb-6" />
           </motion.div>
 
           {/* Filter controls are intentionally disabled for now.
@@ -152,12 +149,12 @@ const Projects = ({ content }: ProjectsProps) => {
 
                     <div className="flex">
                       <motion.a
-                        href={project.githubUrl}
+                        href={toSafeHref(project.githubUrl)}
                         target="_blank"
-                        rel="noreferrer"
+                        rel="noopener noreferrer"
                         className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-zinc-300 px-4 py-2 theme-surface theme-text-secondary text-zinc-700 transition-colors duration-200 hover:border-[#8f332a]/65 hover:bg-[#8f332a]/12 hover:text-[#8f332a] dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-red-400/60 dark:hover:bg-red-500/10 dark:hover:text-red-300"
                       >
-                        <Github className="w-4 h-4" />
+                        <SafeFaIcon value={{ library: "fab", icon: "github" }} className="w-4 h-4" />
                         {content.cta.code}
                       </motion.a>
                     </div>

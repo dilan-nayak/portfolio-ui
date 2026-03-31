@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Download } from "lucide-react";
-import { iconMap } from "@/lib/icons";
-import type { IconKey, PortfolioContent } from "@/types/portfolio-content";
+import { SafeFaIcon } from "@/lib/icons";
+import type { PortfolioContent } from "@/types/portfolio-content";
+import { isExternalLink, toSafeHref } from "@/lib/url-safety";
 
 interface HeroProps {
   content: PortfolioContent["hero"];
@@ -10,11 +10,6 @@ interface HeroProps {
 
 const Hero = ({ content }: HeroProps) => {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
-
-  const renderSocialIcon = (icon: IconKey) => {
-    const Icon = iconMap[icon] ?? iconMap.mail;
-    return <Icon className="w-6 h-6" />;
-  };
 
   const cardTransform = useMemo(
     () => `perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
@@ -72,12 +67,12 @@ const Hero = ({ content }: HeroProps) => {
               <motion.a
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                href={content.secondaryButton.url}
-                target="_blank"
-                rel="noreferrer"
+                href={toSafeHref(content.secondaryButton.url)}
+                target={isExternalLink(content.secondaryButton.url) ? "_blank" : undefined}
+                rel={isExternalLink(content.secondaryButton.url) ? "noopener noreferrer" : undefined}
                 className="flex items-center justify-center gap-2 rounded-xl px-8 py-4 font-semibold theme-accent-bg bg-gradient-to-r from-slate-700 to-cyan-600 text-white shadow-lg transition-all duration-200 hover:shadow-xl dark:from-red-600 dark:to-red-500"
               >
-                <Download className="w-5 h-5" />
+                <SafeFaIcon value={{ library: "fas", icon: "download" }} className="w-5 h-5" />
                 {content.secondaryButton.label}
               </motion.a>
             </motion.div>
@@ -94,13 +89,13 @@ const Hero = ({ content }: HeroProps) => {
                     key={label}
                     whileHover={{ scale: 1.2, y: -5 }}
                     whileTap={{ scale: 0.9 }}
-                    href={href}
-                    target="_blank"
-                    rel="noreferrer"
+                    href={toSafeHref(href)}
+                    target={isExternalLink(href) ? "_blank" : undefined}
+                    rel={isExternalLink(href) ? "noopener noreferrer" : undefined}
                     className="p-3 theme-surface bg-zinc-200 dark:bg-zinc-900 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 theme-text-secondary text-zinc-700 dark:text-zinc-200 hover:text-[#8f332a] dark:hover:text-red-400"
                     aria-label={label}
                   >
-                    {renderSocialIcon(icon)}
+                    <SafeFaIcon value={icon} className="w-6 h-6" />
                   </motion.a>
                 );
               })}

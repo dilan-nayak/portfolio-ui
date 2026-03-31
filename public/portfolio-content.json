@@ -17,15 +17,8 @@
     ]
   },
   "hero": {
-    "greeting": "Hello, I'm",
     "firstName": "Dilan",
     "lastName": "Nayak",
-    "roles": ["Full Stack Developer", "Java Developer", "Problem Solver"],
-    "description": "Passionate about creating beautiful, functional, and user-friendly applications. I turn ideas into reality with clean code and innovative solutions.",
-    "primaryButton": {
-      "label": "View My Work",
-      "target": "#about"
-    },
     "secondaryButton": {
       "label": "Download CV",
       "url": "/resume/dilan-nayak-cv.pdf"
@@ -58,8 +51,7 @@
     }
   },
   "about": {
-    "title": "About",
-    "titleHighlight": "Me",
+    "title": "About Me",
     "paragraphs": [
       "I’m a backend-focused software engineer with ~4 years of experience building APIs and microservices using Java and Spring Boot. I spend most of my time designing clean backend logic, writing efficient SQL, and making systems more reliable and maintainable. When needed, I also step into the frontend with React to connect everything end-to-end.",
       "I genuinely enjoy debugging, understanding why something breaks, and making it better is my favorite part of engineering. Recently, I’ve been diving deeper into system design and scalability, because great software isn’t just about code anymore; it’s about how systems behave at scale. I’m also exploring how AI can accelerate development, while focusing on the architectural thinking behind it.",
@@ -77,8 +69,7 @@
     ]
   },
   "skills": {
-    "title": "My",
-    "titleHighlight": "Skills",
+    "title": "My Skills",
     "stackHeading": "Technology Stack",
     "learningHeading": "Learning In Progress",
     "technologies": [
@@ -232,8 +223,7 @@
     ]
   },
   "projects": {
-    "title": "My",
-    "titleHighlight": "Projects",
+    "title": "My Projects",
     "filters": [],
     "cards": [
       {
@@ -260,8 +250,7 @@
     }
   },
   "contact": {
-    "title": "Get In",
-    "titleHighlight": "Touch",
+    "title": "Get In Touch",
     "connectHeading": "Let's Connect",
     "followHeading": "Follow Me",
     "contactInfo": [
@@ -304,6 +293,12 @@
         "color": "hover:text-red-300"
       }
     ],
+    "inquiryChips": [
+      "Job Opportunity",
+      "Freelance Project",
+      "Collaboration",
+      "Feature Suggestion"
+    ],
     "form": {
       "labels": {
         "name": "Full Name",
@@ -335,13 +330,36 @@
       {
         "state": "active",
         "title": "Looking for job opportunities",
-        "description": "I'm currently searching for new job opportunities for a full stack Developer. If you know of any openings or have any leads, please feel free to reach out!"
+        "description": "I'm currently searching for new job opportunities for a full stack Developer. If you know of any openings or have any leads, please feel free to reach out!",
+        "visible": true,
+        "cta": {
+          "label": "Contact Me",
+          "href": "#contact"
+        }
       },
       {
         "state": "inactive",
         "title": "Not available for new projects right now",
-        "description": "I am currently not taking on new project work. Once I reopen project availability, I will update this section."
+        "description": "I am currently not taking on new project work. Once I reopen project availability, I will update this section.",
+        "visible": true
       }
     ]
+  },
+  "ui": {
+    "sectionVisibility": {
+      "home": true,
+      "about": true,
+      "status": true,
+      "skills": true,
+      "experience": true,
+      "projects": true,
+      "contact": true
+    },
+    "theme": {
+      "lightAccentStart": "#5d2220",
+      "lightAccentEnd": "#c75845",
+      "darkAccentStart": "#dc2626",
+      "darkAccentEnd": "#fb7185"
+    }
   }
 }

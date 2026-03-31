@@ -1,12 +1,37 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { LayoutGrid } from "lucide-react";
 import type { PortfolioContent } from "@/types/portfolio-content";
+import { SafeFaIcon } from "@/lib/icons";
+import SectionTitle from "@/components/SectionTitle";
+import { toSafeHref } from "@/lib/url-safety";
 
 interface SkillsProps {
   content: PortfolioContent["skills"];
 }
+
+const TOKEN_COLOR_MAP: Record<string, string> = {
+  "red-700": "#b91c1c",
+  "rose-500": "#f43f5e",
+  "sky-700": "#0369a1",
+  "blue-500": "#3b82f6",
+  "emerald-700": "#047857",
+  "green-500": "#22c55e",
+  "violet-700": "#6d28d9",
+  "fuchsia-500": "#d946ef",
+  "amber-700": "#b45309",
+  "orange-500": "#f97316",
+  "zinc-700": "#3f3f46",
+  "zinc-500": "#71717a",
+};
+
+const resolveCategoryAccent = (token: string) => {
+  const fromMatch = token.match(/from-([a-z]+-\d{3})/);
+  const toMatch = token.match(/to-([a-z]+-\d{3})/);
+  const start = fromMatch?.[1] ? (TOKEN_COLOR_MAP[fromMatch[1]] ?? "#b91c1c") : "#b91c1c";
+  const end = toMatch?.[1] ? (TOKEN_COLOR_MAP[toMatch[1]] ?? "#f43f5e") : "#f43f5e";
+  return { start, end };
+};
 
 const Skills = ({ content }: SkillsProps) => {
   const [activeLearningTab, setActiveLearningTab] = React.useState<
@@ -113,12 +138,7 @@ const Skills = ({ content }: SkillsProps) => {
           animate={inView ? "visible" : "hidden"}
         >
           <motion.div variants={itemVariants} className="text-left mb-6 md:mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold theme-text-primary text-zinc-900 dark:text-zinc-100 mb-6">
-              {content.title}{" "}
-              <span className="theme-accent-text bg-gradient-to-r from-slate-700 to-cyan-600 dark:from-red-600 dark:to-red-500 bg-clip-text text-transparent">
-                {content.titleHighlight}
-              </span>
-            </h2>
+            <SectionTitle title={content.title} className="mb-6" />
           </motion.div>
 
           <div className="mb-8 flex flex-col gap-8 items-stretch lg:mb-20 lg:flex-row">
@@ -133,23 +153,35 @@ const Skills = ({ content }: SkillsProps) => {
                     whileHover={{ x: 2 }}
                     className="transition-all duration-300"
                   >
-                    <div className="inline-flex items-center gap-3 mb-3">
-                      <span className="h-4 w-1.5 rounded-full bg-[#9f3a30] dark:bg-red-500" />
-                      <h4 className="text-2xl font-bold text-[#9f3a30] dark:text-red-400 tracking-tight">
-                        {category.category}
-                      </h4>
-                    </div>
-                    <div className="flex flex-wrap gap-3 pl-5">
-                      {category.techs.map((tech) => (
-                        <motion.span
-                          key={`${category.category}-${tech}`}
-                          whileHover={{ scale: 1.04 }}
-                          className="px-3 py-1 rounded-lg text-sm font-medium theme-surface-soft bg-zinc-100 dark:bg-zinc-800 theme-text-secondary text-zinc-700 dark:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors duration-200"
-                        >
-                          {tech}
-                        </motion.span>
-                      ))}
-                    </div>
+                    {(() => {
+                      const accent = resolveCategoryAccent(category.color);
+                      return (
+                        <>
+                          <div className="inline-flex items-center gap-3 mb-3">
+                            <span className="h-4 w-1.5 rounded-full" style={{ background: accent.start }} />
+                            <h4
+                              className="text-2xl font-bold tracking-tight bg-clip-text text-transparent"
+                              style={{
+                                backgroundImage: `linear-gradient(90deg, ${accent.start}, ${accent.end})`,
+                              }}
+                            >
+                              {category.category}
+                            </h4>
+                          </div>
+                          <div className="flex flex-wrap gap-3 pl-5">
+                            {category.techs.map((tech) => (
+                              <motion.span
+                                key={`${category.category}-${tech}`}
+                                whileHover={{ scale: 1.04 }}
+                                className="px-3 py-1 rounded-lg text-sm font-medium theme-surface-soft bg-zinc-100 dark:bg-zinc-800 theme-text-secondary text-zinc-700 dark:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors duration-200"
+                              >
+                                {tech}
+                              </motion.span>
+                            ))}
+                          </div>
+                        </>
+                      );
+                    })()}
                   </motion.div>
                 ))}
               </div>
@@ -162,12 +194,22 @@ const Skills = ({ content }: SkillsProps) => {
                       whileHover={{ x: 2 }}
                       className="transition-all duration-300"
                     >
-                      <div className="inline-flex items-center gap-3 mb-3">
-                        <span className="h-4 w-1.5 rounded-full bg-[#9f3a30] dark:bg-red-500" />
-                        <h4 className="text-2xl font-bold text-[#9f3a30] dark:text-red-400 tracking-tight">
-                          {category.category}
-                        </h4>
-                      </div>
+                      {(() => {
+                        const accent = resolveCategoryAccent(category.color);
+                        return (
+                          <div className="inline-flex items-center gap-3 mb-3">
+                            <span className="h-4 w-1.5 rounded-full" style={{ background: accent.start }} />
+                            <h4
+                              className="text-2xl font-bold tracking-tight bg-clip-text text-transparent"
+                              style={{
+                                backgroundImage: `linear-gradient(90deg, ${accent.start}, ${accent.end})`,
+                              }}
+                            >
+                              {category.category}
+                            </h4>
+                          </div>
+                        );
+                      })()}
                       <div className="flex flex-wrap gap-3 pl-5">
                         {category.techs.map((tech) => (
                           <motion.span
@@ -189,12 +231,22 @@ const Skills = ({ content }: SkillsProps) => {
                       whileHover={{ x: 2 }}
                       className="transition-all duration-300"
                     >
-                      <div className="inline-flex items-center gap-3 mb-3">
-                        <span className="h-4 w-1.5 rounded-full bg-[#9f3a30] dark:bg-red-500" />
-                        <h4 className="text-2xl font-bold text-[#9f3a30] dark:text-red-400 tracking-tight">
-                          {category.category}
-                        </h4>
-                      </div>
+                      {(() => {
+                        const accent = resolveCategoryAccent(category.color);
+                        return (
+                          <div className="inline-flex items-center gap-3 mb-3">
+                            <span className="h-4 w-1.5 rounded-full" style={{ background: accent.start }} />
+                            <h4
+                              className="text-2xl font-bold tracking-tight bg-clip-text text-transparent"
+                              style={{
+                                backgroundImage: `linear-gradient(90deg, ${accent.start}, ${accent.end})`,
+                              }}
+                            >
+                              {category.category}
+                            </h4>
+                          </div>
+                        );
+                      })()}
                       <div className="flex flex-wrap gap-3 pl-5">
                         {category.techs.map((tech) => (
                           <motion.span
@@ -232,7 +284,7 @@ const Skills = ({ content }: SkillsProps) => {
                   }`}
                   aria-label="Featured learning courses"
                 >
-                  <LayoutGrid className="w-4 h-4" />
+                  <SafeFaIcon value={{ library: "fas", icon: "table-columns" }} className="w-4 h-4" />
                 </button>
                 <button
                   type="button"
@@ -295,9 +347,9 @@ const Skills = ({ content }: SkillsProps) => {
                       </p>
                       <div className="mt-2">
                         <a
-                          href={course.courseLink}
+                          href={toSafeHref(course.courseLink)}
                           target="_blank"
-                          rel="noreferrer"
+                          rel="noopener noreferrer"
                           className="inline-flex items-center px-3 py-1 rounded-md text-xs font-semibold theme-surface-soft text-[#8f332a] hover:bg-[#e8d7c7] dark:bg-red-900/50 dark:text-red-200 dark:hover:bg-red-800/60 transition-colors"
                         >
                           Open Link

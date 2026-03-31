@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Send } from "lucide-react";
-import { iconMap } from "@/lib/icons";
-import type { IconKey, PortfolioContent } from "@/types/portfolio-content";
+import { SafeFaIcon } from "@/lib/icons";
+import type { PortfolioContent } from "@/types/portfolio-content";
+import { DEFAULT_INQUIRY_CHIPS } from "@/lib/portfolio-defaults";
+import SectionTitle from "@/components/SectionTitle";
+import { isExternalLink, toSafeHref } from "@/lib/url-safety";
 
 interface ContactProps {
   content: PortfolioContent["contact"];
@@ -89,14 +91,6 @@ const Contact = ({ content }: ContactProps) => {
     }
   };
 
-  const isExternalOrProtocolLink = (href: string) =>
-    /^(https?:|mailto:|tel:)/i.test(href);
-
-  const renderSocialIcon = (icon: IconKey) => {
-    const Icon = iconMap[icon] ?? iconMap.mail;
-    return <Icon className="w-6 h-6" />;
-  };
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -118,12 +112,9 @@ const Contact = ({ content }: ContactProps) => {
     },
   };
 
-  const quickIntents = [
-    "Job Opportunity",
-    "Freelance Project",
-    "Collaboration",
-    "Feature Suggestion",
-  ];
+  const quickIntents = content.inquiryChips && content.inquiryChips.length > 0
+    ? content.inquiryChips
+    : DEFAULT_INQUIRY_CHIPS;
 
   return (
     <section
@@ -138,12 +129,7 @@ const Contact = ({ content }: ContactProps) => {
           animate={inView ? "visible" : "hidden"}
         >
           <motion.div variants={itemVariants} className="text-left mb-6 md:mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold theme-text-primary text-zinc-900 dark:text-zinc-100 mb-6">
-              {content.title}{" "}
-              <span className="theme-accent-text bg-gradient-to-r from-slate-700 to-cyan-600 dark:from-red-600 dark:to-red-500 bg-clip-text text-transparent">
-                {content.titleHighlight}
-              </span>
-            </h2>
+            <SectionTitle title={content.title} className="mb-6" />
           </motion.div>
 
           <div className="grid lg:grid-cols-2 gap-16">
@@ -154,19 +140,17 @@ const Contact = ({ content }: ContactProps) => {
 
               <div className="space-y-6 mb-8">
                 {content.contactInfo.map((info) => {
-                  const Icon = iconMap[info.icon] ?? iconMap.mail;
-
                   return (
                     <motion.a
                       key={info.title}
                       whileHover={{ x: 10 }}
-                      href={info.href}
-                      target={isExternalOrProtocolLink(info.href) ? "_blank" : undefined}
-                      rel={isExternalOrProtocolLink(info.href) ? "noreferrer" : undefined}
+                      href={toSafeHref(info.href)}
+                      target={isExternalLink(info.href) ? "_blank" : undefined}
+                      rel={isExternalLink(info.href) ? "noopener noreferrer" : undefined}
                       className="flex items-center gap-4 p-4 theme-surface bg-zinc-200 dark:bg-zinc-900 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group"
                     >
                       <div className="flex items-center justify-center w-12 h-12 theme-accent-bg bg-gradient-to-r from-slate-700 to-cyan-600 dark:from-red-600 dark:to-red-500 rounded-lg group-hover:scale-110 transition-transform duration-200">
-                        <Icon className="w-6 h-6 text-white" />
+                        <SafeFaIcon value={info.icon} className="w-6 h-6 text-white" />
                       </div>
                       <div>
                         <h4 className="font-semibold theme-text-primary text-zinc-900 dark:text-zinc-100">
@@ -192,13 +176,13 @@ const Contact = ({ content }: ContactProps) => {
                         key={social.name}
                         whileHover={{ scale: 1.2, y: -5 }}
                         whileTap={{ scale: 0.9 }}
-                        href={social.href}
-                        target={isExternalOrProtocolLink(social.href) ? "_blank" : undefined}
-                        rel={isExternalOrProtocolLink(social.href) ? "noreferrer" : undefined}
+                        href={toSafeHref(social.href)}
+                        target={isExternalLink(social.href) ? "_blank" : undefined}
+                        rel={isExternalLink(social.href) ? "noopener noreferrer" : undefined}
                         className={`p-3 theme-surface bg-zinc-200 dark:bg-zinc-900 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 theme-text-secondary text-zinc-600 dark:text-zinc-400 ${social.color}`}
                         aria-label={social.name}
                       >
-                        {renderSocialIcon(social.icon)}
+                        <SafeFaIcon value={social.icon} className="w-6 h-6" />
                       </motion.a>
                     );
                   })}
@@ -336,7 +320,7 @@ const Contact = ({ content }: ContactProps) => {
                     </>
                   ) : (
                     <>
-                      <Send className="w-5 h-5" />
+                      <SafeFaIcon value={{ library: "fas", icon: "comment" }} className="w-5 h-5" />
                       {content.form.actions.submit}
                     </>
                   )}

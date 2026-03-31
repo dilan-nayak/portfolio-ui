@@ -13,6 +13,10 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    --accent-light-start: #5d2220;
+    --accent-light-end: #c75845;
+    --accent-dark-start: #dc2626;
+    --accent-dark-end: #fb7185;
   }
 
   .dark {
@@ -88,6 +92,165 @@
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
   }
+}
+
+@layer components {
+  .admin-surface {
+    @apply rounded-2xl border-2 border-zinc-700/75 bg-zinc-900/40 p-4;
+  }
+
+  .admin-surface-muted {
+    @apply rounded-xl border-2 border-zinc-700/70 bg-zinc-950/25 p-3;
+  }
+
+  .admin-item {
+    @apply rounded-xl border-2 border-zinc-700/75 bg-zinc-950/10 p-4;
+  }
+
+  .admin-divider {
+    @apply border-t border-zinc-800/70;
+  }
+
+  .admin-grab {
+    @apply inline-flex h-8 w-8 cursor-grab items-center justify-center rounded-lg border border-zinc-700/90 bg-zinc-900/70 text-zinc-300 active:cursor-grabbing;
+  }
+
+  .admin-delete-btn {
+    @apply inline-flex items-center gap-1 rounded-lg border border-red-500/60 bg-red-500/10 text-red-200 transition hover:bg-red-500/20;
+  }
+}
+
+/* Admin light-theme hierarchy: clear white surfaces + border depth */
+html:not(.dark) .admin-surface {
+  background-color: #ffffff;
+  border-color: #d4d4d8;
+  border-width: 3px;
+}
+
+html:not(.dark) .admin-item {
+  background-color: #ffffff;
+  border-color: #a1a1aa;
+  border-width: 2px;
+}
+
+html:not(.dark) .admin-surface-muted {
+  background-color: #fafafa;
+  border-color: #c4c4cc;
+  border-width: 1px;
+}
+
+html:not(.dark) .admin-divider {
+  border-top-color: #d4d4d8;
+}
+
+html:not(.dark) .admin-grab {
+  background-color: #f4f4f5;
+  border-color: #c4c4cc;
+  color: #52525b;
+}
+
+html:not(.dark) .admin-delete-btn {
+  background-color: #fee2e2;
+  border-color: #ef4444;
+  color: #991b1b;
+}
+
+html:not(.dark) .admin-delete-btn:hover {
+  background-color: #fecaca;
+}
+
+/* Light theme admin hard override: avoid dark patches in admin only */
+html:not(.dark) .admin-root [class*="bg-zinc-900"],
+html:not(.dark) .admin-root [class*="bg-zinc-950"],
+html:not(.dark) .admin-root [class*="bg-zinc-800"],
+html:not(.dark) .admin-root [class*="bg-zinc-700"],
+html:not(.dark) .admin-root [class*="from-zinc-"],
+html:not(.dark) .admin-root [class*="to-zinc-"] {
+  background-image: none !important;
+  background-color: #ffffff !important;
+}
+
+html:not(.dark) .admin-root [class*="border-zinc-900"],
+html:not(.dark) .admin-root [class*="border-zinc-800"],
+html:not(.dark) .admin-root [class*="border-zinc-700"],
+html:not(.dark) .admin-root [class*="border-zinc-600"] {
+  border-color: #a1a1aa !important;
+}
+
+html:not(.dark) .admin-root [class*="text-zinc-100"],
+html:not(.dark) .admin-root [class*="text-zinc-200"],
+html:not(.dark) .admin-root [class*="text-zinc-300"],
+html:not(.dark) .admin-root [class*="text-zinc-400"],
+html:not(.dark) .admin-root [class*="text-zinc-500"] {
+  color: #18181b !important;
+}
+
+html:not(.dark) .admin-root input,
+html:not(.dark) .admin-root textarea,
+html:not(.dark) .admin-root select {
+  color: #09090b !important;
+  background-color: #ffffff !important;
+}
+
+html:not(.dark) .admin-root input::placeholder,
+html:not(.dark) .admin-root textarea::placeholder {
+  color: #52525b !important;
+  opacity: 1;
+}
+
+html:not(.dark) .admin-surface h1,
+html:not(.dark) .admin-surface h2,
+html:not(.dark) .admin-surface h3,
+html:not(.dark) .admin-surface p,
+html:not(.dark) .admin-item h1,
+html:not(.dark) .admin-item h2,
+html:not(.dark) .admin-item h3,
+html:not(.dark) .admin-item p,
+html:not(.dark) .admin-surface-muted h1,
+html:not(.dark) .admin-surface-muted h2,
+html:not(.dark) .admin-surface-muted h3,
+html:not(.dark) .admin-surface-muted p {
+  color: #18181b;
+}
+
+html:not(.dark) .admin-surface .text-zinc-100,
+html:not(.dark) .admin-item .text-zinc-100,
+html:not(.dark) .admin-surface-muted .text-zinc-100,
+html:not(.dark) .admin-surface .text-zinc-200,
+html:not(.dark) .admin-item .text-zinc-200,
+html:not(.dark) .admin-surface-muted .text-zinc-200,
+html:not(.dark) .admin-surface .text-zinc-300,
+html:not(.dark) .admin-item .text-zinc-300,
+html:not(.dark) .admin-surface-muted .text-zinc-300,
+html:not(.dark) .admin-surface .text-zinc-400,
+html:not(.dark) .admin-item .text-zinc-400,
+html:not(.dark) .admin-surface-muted .text-zinc-400,
+html:not(.dark) .admin-surface .text-zinc-500,
+html:not(.dark) .admin-item .text-zinc-500,
+html:not(.dark) .admin-surface-muted .text-zinc-500 {
+  color: #18181b !important;
+}
+
+html:not(.dark) .admin-surface input,
+html:not(.dark) .admin-surface textarea,
+html:not(.dark) .admin-surface select,
+html:not(.dark) .admin-item input,
+html:not(.dark) .admin-item textarea,
+html:not(.dark) .admin-item select,
+html:not(.dark) .admin-surface-muted input,
+html:not(.dark) .admin-surface-muted textarea,
+html:not(.dark) .admin-surface-muted select {
+  color: #09090b !important;
+}
+
+html:not(.dark) .admin-surface input::placeholder,
+html:not(.dark) .admin-surface textarea::placeholder,
+html:not(.dark) .admin-item input::placeholder,
+html:not(.dark) .admin-item textarea::placeholder,
+html:not(.dark) .admin-surface-muted input::placeholder,
+html:not(.dark) .admin-surface-muted textarea::placeholder {
+  color: #52525b !important;
+  opacity: 1;
 }
 
 /* Custom scrollbar */
@@ -184,6 +347,13 @@ img:not([loading]) {
   animation: floating 3s ease-in-out infinite;
 }
 
+/* Keep Font Awesome icons optically centered inside square icon buttons/chips */
+.fa-center-fix.svg-inline--fa {
+  display: block;
+  vertical-align: 0;
+  line-height: 1;
+}
+
 /* Light theme design tokens (applies only when dark mode is off) */
 html:not(.dark) {
   --lt-page: #f2ede6;
@@ -223,9 +393,9 @@ html:not(.dark) .theme-text-secondary {
 html:not(.dark) .theme-accent-text {
   background-image: linear-gradient(
     90deg,
-    var(--lt-accent-1) 0%,
+    var(--accent-light-start) 0%,
     var(--lt-accent-2) 60%,
-    var(--lt-accent-3) 100%
+    var(--accent-light-end) 100%
   ) !important;
   -webkit-background-clip: text;
   background-clip: text;
@@ -235,9 +405,28 @@ html:not(.dark) .theme-accent-text {
 html:not(.dark) .theme-accent-bg {
   background-image: linear-gradient(
     90deg,
-    var(--lt-accent-1) 0%,
+    var(--accent-light-start) 0%,
     var(--lt-accent-2) 65%,
-    var(--lt-accent-3) 100%
+    var(--accent-light-end) 100%
+  ) !important;
+  color: #fff !important;
+}
+
+.dark .theme-accent-text {
+  background-image: linear-gradient(
+    90deg,
+    var(--accent-dark-start) 0%,
+    #ef4444 55%,
+    var(--accent-dark-end) 100%
+  ) !important;
+}
+
+.dark .theme-accent-bg {
+  background-image: linear-gradient(
+    90deg,
+    var(--accent-dark-start) 0%,
+    #ef4444 55%,
+    var(--accent-dark-end) 100%
   ) !important;
   color: #fff !important;
 }
